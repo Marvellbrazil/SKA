@@ -10,7 +10,9 @@ class GeminiChatService
 
     public function __construct()
     {
-        $this->endpoint = env('GEMINI_ENDPOINT').env('GEMINI_API_KEY');
+        $endpoint = (string) config('services.gemini.endpoint', env('GEMINI_ENDPOINT', 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key='));
+        $apiKey = (string) config('services.gemini.api_key', env('GEMINI_API_KEY', ''));
+        $this->endpoint = str_contains($endpoint, 'key=') ? $endpoint . $apiKey : $endpoint . '?key=' . $apiKey;
     }
 
     public function ask(string $prompt): string

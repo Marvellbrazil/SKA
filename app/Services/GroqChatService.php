@@ -14,9 +14,9 @@ class GroqChatService
 
     public function __construct()
     {
-        $this->apiKey = env('GROQ_API_KEY');
+        $this->apiKey = (string) config('services.groq.api_key', env('GROQ_API_KEY'));
         $this->endpoint = 'https://api.groq.com/openai/v1/chat/completions';
-        $this->model = env('GROQ_MODEL', 'llama-3.3-70b-versatile');
+        $this->model = (string) config('services.groq.model', env('GROQ_MODEL', 'llama-3.3-70b-versatile'));
     }
 
     public function ask(string $prompt): string
