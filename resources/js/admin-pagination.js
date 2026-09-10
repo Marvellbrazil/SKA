@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (link && !link.classList.contains('text-gray-400') && !link.classList.contains('cursor-not-allowed')) {
                 const url = link.getAttribute('href');
 
-                if (url && url.includes('?page=')) {
+                if (url?.includes('?page=')) {
                     e.preventDefault();
                     loadPage(url);
                 }

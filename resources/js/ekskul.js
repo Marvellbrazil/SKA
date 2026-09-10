@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const paginationContainer = document.getElementById('pagination-container');
+    // const paginationContainer = document.getElementById('pagination-container');
     const ekskulContent = document.getElementById('ekskul-content');
     const ekskulData = document.getElementById('ekskul-data');
 
@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (link && !link.classList.contains('text-gray-400') && !link.classList.contains('cursor-not-allowed')) {
                 const url = link.getAttribute('href');
-                
-                if (url && url.includes('?page=')) {
+
+                if (url?.includes('?page=')) {
                     e.preventDefault();
                     loadPage(url);
                 }

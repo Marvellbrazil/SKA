@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filterButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const type = button.getAttribute('data-type');
+            const type = button.dataset.type;
 
             filterButtons.forEach(btn => btn.classList.remove('bg-blue-800', 'text-white'));
             button.classList.add('bg-blue-800', 'text-white');
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentNewsCards = document.querySelectorAll('#berita-content .news-card');
 
             currentNewsCards.forEach(card => {
-                const cardType = card.getAttribute('data-type');
+                const cardType = card.dataset.type;
                 if (type === 'all' || cardType === type) {
                     card.style.display = 'block';
                 } else {
@@ -77,11 +77,11 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(e) {
         const button = e.target.closest('.read-more-btn');
         if (button) {
-            const image = button.getAttribute('data-image');
-            const title = button.getAttribute('data-title');
-            const date = button.getAttribute('data-date');
-            const views = button.getAttribute('data-views');
-            const content = button.getAttribute('data-content');
+            const image = button.dataset.image;
+            const title = button.dataset.title;
+            const date = button.dataset.date;
+            const views = button.dataset.views;
+            const content = button.dataset.content;
 
             openSidebar(image, title, date, views, content);
         }
@@ -160,11 +160,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function applyActiveFilter() {
         const activeFilterBtn = document.querySelector('.filter-btn.bg-blue-800');
         if (activeFilterBtn) {
-            const activeType = activeFilterBtn.getAttribute('data-type');
+            const activeType = activeFilterBtn.dataset.type;
             const newCards = document.querySelectorAll('#berita-content .news-card');
 
             newCards.forEach(card => {
-                if (activeType === 'all' || card.getAttribute('data-type') === activeType) {
+                if (activeType === 'all' || card.dataset.type === activeType) {
                     card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (paginationContainer) {
             const link = e.target.closest('a');
 
-            if (link && link.href) {
+            if (link?.href) {
                 e.preventDefault();
                 loadPage(link.href);
             }

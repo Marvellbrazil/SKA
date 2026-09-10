@@ -7,7 +7,7 @@ const CHAT_EXPIRE_TIME = 3 * 60 * 60 * 1000;
 
 export function getChatHistory() {
     const timestamp = localStorage.getItem(CHAT_TIMESTAMP_KEY);
-    if (timestamp && (Date.now() - parseInt(timestamp)) > CHAT_EXPIRE_TIME) {
+    if (timestamp && (Date.now() - Number.parseInt(timestamp)) > CHAT_EXPIRE_TIME) {
         clearChatHistory();
         return [];
     }

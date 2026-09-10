@@ -1,6 +1,6 @@
 <p align="center">  
-  <a href="https://smkpgri3mlg.web.id" target="_blank">  
-    <img src="public/assets/skariga300rbg.png" width="300" alt="Logo SMK PGRI 3 MALANG">  
+  <a href="https://smkpgri3-mlg.sch.id" target="_blank">  
+    <img src="public/assets/skariga300rbg.png" width="300" alt="Logo SMK PGRI 3 MALANG">
   </a>  
 </p>  
 
@@ -28,7 +28,7 @@
 
 <code>Terminal</code>
 ```bash
-git clone https://github.com/radityapanca02/SKA
+git clone https://github.com/Marvellbrazil/SKA
 cd SKA
 
 composer install && composer update
