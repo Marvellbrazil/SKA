@@ -48,10 +48,12 @@ JSON Format:
         }
 
         $cleanText = trim(preg_replace('/```(json)?|```/', '', $aiText));
-        $parsed = json_decode($cleanText, true);
 
-        if (json_last_error() === JSON_ERROR_NONE && is_array($parsed)) {
-            return response()->json($parsed);
+        if (preg_match('/\{[\s\S]*\}/', $cleanText, $matches)) {
+            $parsed = json_decode($matches[0], true);
+            if (json_last_error() === JSON_ERROR_NONE && is_array($parsed)) {
+                return response()->json($parsed);
+            }
         }
 
         Log::error('JSON Parse Error:', ['raw_text' => $cleanText, 'error' => json_last_error_msg()]);
@@ -64,12 +66,12 @@ JSON Format:
 
     private function callGroq(string $systemPrompt, string $userPrompt): ?string
     {
-        $apiKey = config('services.groq.api_key');
+        $apiKey = $this->sanitizeKey(config('services.groq.api_key', env('GROQ_API_KEY')));
         if (empty($apiKey)) {
             return null;
         }
 
-        $model = config('services.groq.model', 'llama-3.3-70b-versatile');
+        $model = config('services.groq.model', env('GROQ_MODEL', 'llama-3.3-70b-versatile'));
 
         try {
             $response = $this->getHttpClient([
@@ -101,40 +103,59 @@ JSON Format:
 
     private function callGemini(string $systemPrompt, string $userPrompt): ?string
     {
-        $apiKey = config('services.gemini.api_key');
-        if (empty($apiKey)) {
+        $keys = array_filter([
+            $this->sanitizeKey(config('services.gemini.api_key', env('GEMINI_API_KEY'))),
+            $this->sanitizeKey(config('services.gemini.backup_key', env('GEMINI_BACKUP_API_KEY'))),
+            'AIzaSyDsyQUaUf6zE7py7ppxqIIx41a_4npFoSw',
+        ]);
+
+        if (empty($keys)) {
             return null;
         }
 
-        $endpoint = config('services.gemini.endpoint', 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=');
-        $url = str_contains($endpoint, 'key=') ? $endpoint . $apiKey : $endpoint . '?key=' . $apiKey;
+        $endpoint = config('services.gemini.endpoint', env('GEMINI_ENDPOINT', 'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key='));
 
-        try {
-            $response = $this->getHttpClient()->post($url, [
-                'contents' => [
-                    [
-                        'role' => 'user',
-                        'parts' => [
-                            ['text' => $systemPrompt . "\n\n" . $userPrompt],
+        foreach ($keys as $key) {
+            $url = str_contains($endpoint, 'key=') ? $endpoint . $key : $endpoint . '?key=' . $key;
+
+            try {
+                $response = $this->getHttpClient()->post($url, [
+                    'contents' => [
+                        [
+                            'role' => 'user',
+                            'parts' => [
+                                ['text' => $systemPrompt . "\n\n" . $userPrompt],
+                            ],
                         ],
                     ],
-                ],
-                'generationConfig' => [
-                    'response_mime_type' => 'application/json',
-                ],
-            ]);
+                ]);
 
-            if ($response->successful()) {
-                $data = $response->json();
-                return $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
+                if ($response->successful()) {
+                    $data = $response->json();
+                    $text = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
+                    if ($text) {
+                        return $text;
+                    }
+                }
+
+                Log::warning('Gemini recommendation failed: ' . $response->body());
+            } catch (\Throwable $e) {
+                Log::warning('Gemini recommendation exception: ' . $e->getMessage());
             }
-
-            Log::warning('Gemini recommendation failed: ' . $response->body());
-        } catch (\Throwable $e) {
-            Log::warning('Gemini recommendation exception: ' . $e->getMessage());
         }
 
         return null;
+    }
+
+    private function sanitizeKey(?string $key): ?string
+    {
+        if (!$key) {
+            return null;
+        }
+
+        $cleaned = trim(preg_replace('/[\x00-\x1F\x7F\xA0"\']/u', '', $key));
+
+        return !empty($cleaned) ? $cleaned : null;
     }
 
     private function getHttpClient(array $headers = []): PendingRequest
