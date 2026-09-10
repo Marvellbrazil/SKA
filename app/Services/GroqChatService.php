@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Log;
+
 class GroqChatService
 {
     use ChatbotTrait;
@@ -24,30 +26,39 @@ class GroqChatService
         $context = $this->getContext();
         $systemPrompt = $this->getSystemPrompt($context);
 
-        $response = $this->getHttpClient([
-            'Authorization' => 'Bearer '.$this->apiKey,
-        ])->post($this->endpoint, [
-            'model' => $this->model,
-            'messages' => [
-                [
-                    'role' => 'system',
-                    'content' => $systemPrompt,
+        try {
+            $response = $this->getHttpClient([
+                'Authorization' => 'Bearer '.$this->apiKey,
+            ])->post($this->endpoint, [
+                'model' => $this->model,
+                'messages' => [
+                    [
+                        'role' => 'system',
+                        'content' => $systemPrompt,
+                    ],
+                    [
+                        'role' => 'user',
+                        'content' => $prompt,
+                    ],
                 ],
-                [
-                    'role' => 'user',
-                    'content' => $prompt,
-                ],
-            ],
-            'temperature' => 0.7,
-            'max_tokens' => 1024,
-        ]);
+                'temperature' => 0.7,
+                'max_tokens' => 1024,
+            ]);
 
-        if ($response->successful()) {
-            $data = $response->json();
+            $rawBody = $response->body();
+            Log::info('Groq Chat API raw response: '.$rawBody);
 
-            return $data['choices'][0]['message']['content'] ?? 'Maaf, saya tidak tahu jawabannya.';
+            if ($response->successful()) {
+                $data = $response->json();
+
+                return $data['choices'][0]['message']['content'] ?? 'Maaf, saya tidak tahu jawabannya.';
+            }
+
+            return 'Terjadi kesalahan: '.$rawBody;
+        } catch (\Throwable $e) {
+            Log::error('Groq Chat API exception: '.$e->getMessage());
+
+            return 'Terjadi kesalahan: '.$e->getMessage();
         }
-
-        return 'Terjadi kesalahan: '.$response->body();
     }
 }

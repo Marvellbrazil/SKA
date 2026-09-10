@@ -37,11 +37,10 @@ JSON Format:
 
         $userPrompt = "Minat saya: {$keyword}";
 
-        $aiText = $this->callGroq($systemPrompt, $userPrompt);
-
-        if (!$aiText) {
-            $aiText = $this->callGemini($systemPrompt, $userPrompt);
-        }
+        $provider = strtoupper((string) config('services.chatbot.provider', env('CHATBOT_PROVIDER', 'GROQ')));
+        $aiText = ($provider === 'GEMINI')
+            ? $this->callGemini($systemPrompt, $userPrompt)
+            : $this->callGroq($systemPrompt, $userPrompt);
 
         if (!$aiText) {
             return response()->json(['error' => 'Gagal menghubungi AI service'], 500);
@@ -88,12 +87,15 @@ JSON Format:
                 'response_format' => ['type' => 'json_object'],
             ]);
 
+            $rawBody = $response->body();
+            Log::info('Groq recommendation raw response: ' . $rawBody);
+
             if ($response->successful()) {
                 $data = $response->json();
                 return $data['choices'][0]['message']['content'] ?? null;
             }
 
-            Log::warning('Groq recommendation failed: ' . $response->body());
+            Log::warning('Groq recommendation failed: ' . $rawBody);
         } catch (\Throwable $e) {
             Log::warning('Groq recommendation exception: ' . $e->getMessage());
         }
@@ -130,6 +132,9 @@ JSON Format:
                     ],
                 ]);
 
+                $rawBody = $response->body();
+                Log::info('Gemini recommendation raw response: ' . $rawBody);
+
                 if ($response->successful()) {
                     $data = $response->json();
                     $text = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
@@ -138,7 +143,7 @@ JSON Format:
                     }
                 }
 
-                Log::warning('Gemini recommendation failed: ' . $response->body());
+                Log::warning('Gemini recommendation failed: ' . $rawBody);
             } catch (\Throwable $e) {
                 Log::warning('Gemini recommendation exception: ' . $e->getMessage());
             }

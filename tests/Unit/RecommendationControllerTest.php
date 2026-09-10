@@ -50,14 +50,13 @@ class RecommendationControllerTest extends TestCase
             ->assertJsonPath('jurusan_alternatif.name', 'TKJ');
     }
 
-    public function test_recommendation_fallback_to_gemini_when_groq_fails(): void
+    public function test_recommendation_gemini_success_when_provider_is_gemini(): void
     {
-        Config::set('services.groq.api_key', 'mock_groq_key');
+        Config::set('services.chatbot.provider', 'GEMINI');
         Config::set('services.gemini.api_key', 'mock_gemini_key');
-        Config::set('services.gemini.endpoint', 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=');
+        Config::set('services.gemini.endpoint', 'https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=');
 
         Http::fake([
-            'https://api.groq.com/openai/v1/chat/completions' => Http::response(['error' => 'Rate limit'], 429),
             'https://generativelanguage.googleapis.com/*' => Http::response([
                 'candidates' => [
                     [
@@ -91,14 +90,13 @@ class RecommendationControllerTest extends TestCase
             ->assertJsonPath('jurusan_alternatif.name', 'NIMA');
     }
 
-    public function test_recommendation_returns_500_when_both_fail(): void
+    public function test_recommendation_returns_500_when_provider_fails(): void
     {
+        Config::set('services.chatbot.provider', 'GROQ');
         Config::set('services.groq.api_key', 'mock_groq_key');
-        Config::set('services.gemini.api_key', 'mock_gemini_key');
 
         Http::fake([
             'https://api.groq.com/*' => Http::response(['error' => 'Failed'], 500),
-            'https://generativelanguage.googleapis.com/*' => Http::response(['error' => 'Failed'], 500),
         ]);
 
         $response = $this->postJson('/api/gemini', ['keyword' => 'mesin motor']);

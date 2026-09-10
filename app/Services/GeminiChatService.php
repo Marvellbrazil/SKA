@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Log;
+
 class GeminiChatService
 {
     use ChatbotTrait;
@@ -55,14 +57,18 @@ class GeminiChatService
                 ]);
 
                 if ($response->successful()) {
+                    $rawBody = $response->body();
+                    Log::info('Gemini Chat API raw response: '.$rawBody);
                     $data = $response->json();
 
                     return $data['candidates'][0]['content']['parts'][0]['text'] ?? 'Maaf, saya tidak tahu jawabannya.';
                 }
 
                 $lastError = $response->body();
+                Log::warning('Gemini Chat API key failed: '.$lastError);
             } catch (\Throwable $e) {
                 $lastError = $e->getMessage();
+                Log::error('Gemini Chat API exception: '.$lastError);
             }
         }
 

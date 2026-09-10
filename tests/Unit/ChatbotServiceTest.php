@@ -23,23 +23,41 @@ class ChatbotServiceTest extends TestCase
         $this->assertStringContainsString('Profil SMK PGRI 3 Malang', $context);
     }
 
-    public function test_chatbot_service_failover_on_rate_limit(): void
+    public function test_chatbot_service_uses_groq_when_provider_is_groq(): void
     {
+        config(['services.chatbot.provider' => 'GROQ']);
+
         $geminiMock = $this->createMock(GeminiChatService::class);
         $groqMock = $this->createMock(GroqChatService::class);
 
         $groqMock->expects($this->once())
             ->method('ask')
-            ->willReturn('Terjadi kesalahan: rate_limit_exceeded (429)');
+            ->with('Halo')
+            ->willReturn('Jawaban dari Groq');
+
+        $geminiMock->expects($this->never())
+            ->method('ask');
+
+        $service = new ChatbotService($geminiMock, $groqMock);
+        $result = $service->ask('Halo');
+
+        $this->assertEquals('Jawaban dari Groq', $result);
+    }
+
+    public function test_chatbot_service_uses_gemini_when_provider_is_gemini(): void
+    {
+        config(['services.chatbot.provider' => 'GEMINI']);
+
+        $geminiMock = $this->createMock(GeminiChatService::class);
+        $groqMock = $this->createMock(GroqChatService::class);
 
         $geminiMock->expects($this->once())
             ->method('ask')
             ->with('Halo')
             ->willReturn('Jawaban dari Gemini');
 
-        Log::shouldReceive('warning')
-            ->once()
-            ->with('Groq Failed/Rate Limited. Falling back to Gemini.');
+        $groqMock->expects($this->never())
+            ->method('ask');
 
         $service = new ChatbotService($geminiMock, $groqMock);
         $result = $service->ask('Halo');
@@ -47,8 +65,33 @@ class ChatbotServiceTest extends TestCase
         $this->assertEquals('Jawaban dari Gemini', $result);
     }
 
-    public function test_chatbot_service_failover_on_exception(): void
+    public function test_chatbot_service_returns_friendly_fallback_on_groq_error(): void
     {
+        config(['services.chatbot.provider' => 'GROQ']);
+
+        $geminiMock = $this->createMock(GeminiChatService::class);
+        $groqMock = $this->createMock(GroqChatService::class);
+
+        $groqMock->expects($this->once())
+            ->method('ask')
+            ->willReturn('Terjadi kesalahan: 429 Too Many Requests');
+
+        $geminiMock->expects($this->never())
+            ->method('ask');
+
+        Log::shouldReceive('error')
+            ->once();
+
+        $service = new ChatbotService($geminiMock, $groqMock);
+        $result = $service->ask('Halo');
+
+        $this->assertStringContainsString('Maaf, asisten AI SKARIBOT saat ini sedang mengalami lonjakan antrean', $result);
+    }
+
+    public function test_chatbot_service_returns_friendly_fallback_on_exception(): void
+    {
+        config(['services.chatbot.provider' => 'GROQ']);
+
         $geminiMock = $this->createMock(GeminiChatService::class);
         $groqMock = $this->createMock(GroqChatService::class);
 
@@ -56,42 +99,11 @@ class ChatbotServiceTest extends TestCase
             ->method('ask')
             ->willThrowException(new \Exception('Connection timeout'));
 
-        $geminiMock->expects($this->once())
-            ->method('ask')
-            ->with('Halo')
-            ->willReturn('Jawaban dari Gemini');
+        $geminiMock->expects($this->never())
+            ->method('ask');
 
         Log::shouldReceive('error')
-            ->once()
-            ->with('Groq Exception: Connection timeout');
-
-        $service = new ChatbotService($geminiMock, $groqMock);
-        $result = $service->ask('Halo');
-
-        $this->assertEquals('Jawaban dari Gemini', $result);
-    }
-
-    public function test_chatbot_service_returns_friendly_fallback_when_both_providers_fail(): void
-    {
-        $geminiMock = $this->createMock(GeminiChatService::class);
-        $groqMock = $this->createMock(GroqChatService::class);
-
-        $groqMock->expects($this->once())
-            ->method('ask')
-            ->willReturn('Terjadi kesalahan: {"error": {"code": 401, "message": "Invalid API Key"}}');
-
-        $geminiMock->expects($this->once())
-            ->method('ask')
-            ->with('Halo')
-            ->willReturn('Terjadi kesalahan: {"error": {"code": 429, "message": "Resource Exhausted"}}');
-
-        Log::shouldReceive('warning')
-            ->once()
-            ->with('Groq Failed/Rate Limited. Falling back to Gemini.');
-
-        Log::shouldReceive('error')
-            ->once()
-            ->with('Gemini fallback failed: Terjadi kesalahan: {"error": {"code": 429, "message": "Resource Exhausted"}}');
+            ->once();
 
         $service = new ChatbotService($geminiMock, $groqMock);
         $result = $service->ask('Halo');
