@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Log;
 
 class ChatbotService
 {
+    use ChatbotTrait;
+
     protected $gemini;
 
     protected $groq;
@@ -33,17 +35,40 @@ class ChatbotService
                     str_contains($response, 'rate_limit_exceeded')
                 ) {
                     Log::warning('Groq Failed/Rate Limited. Falling back to Gemini.');
-                    return $this->gemini->ask($prompt);
+                    $geminiResponse = $this->gemini->ask($prompt);
+
+                    if (str_contains($geminiResponse, 'Terjadi kesalahan')) {
+                        Log::error('Gemini fallback failed: '.$geminiResponse);
+
+                        return $this->getFriendlyFallbackMessage();
+                    }
+
+                    return $geminiResponse;
                 }
 
                 return $response;
             } catch (\Exception $e) {
-                Log::error('Groq Exception: ' . $e->getMessage());
-                return $this->gemini->ask($prompt);
+                Log::error('Groq Exception: '.$e->getMessage());
+                $geminiResponse = $this->gemini->ask($prompt);
+
+                if (str_contains($geminiResponse, 'Terjadi kesalahan')) {
+                    Log::error('Gemini fallback failed: '.$geminiResponse);
+
+                    return $this->getFriendlyFallbackMessage();
+                }
+
+                return $geminiResponse;
             }
         }
 
-        return $this->gemini->ask($prompt);
+        $geminiResponse = $this->gemini->ask($prompt);
+        if (str_contains($geminiResponse, 'Terjadi kesalahan')) {
+            Log::error('Gemini failed: '.$geminiResponse);
+
+            return $this->getFriendlyFallbackMessage();
+        }
+
+        return $geminiResponse;
     }
 }
 

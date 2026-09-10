@@ -55,5 +55,21 @@ Data Acuan Sekolah:
 
         return $http;
     }
+
+    protected function sanitizeKey(?string $key): ?string
+    {
+        if (!$key) {
+            return null;
+        }
+
+        $cleaned = trim(preg_replace('/[\x00-\x1F\x7F\xA0"\']/u', '', $key));
+
+        return !empty($cleaned) ? $cleaned : null;
+    }
+
+    protected function getFriendlyFallbackMessage(): string
+    {
+        return "Maaf, asisten AI SKARIBOT saat ini sedang mengalami lonjakan antrean. Silakan coba beberapa saat lagi atau hubungi admin sekolah melalui WhatsApp di <a href='https://wa.me/6282133000370' target='_blank' style='color: blue;'>Chat Admin</a>.";
+    }
 }
 

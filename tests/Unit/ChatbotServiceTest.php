@@ -70,4 +70,32 @@ class ChatbotServiceTest extends TestCase
 
         $this->assertEquals('Jawaban dari Gemini', $result);
     }
+
+    public function test_chatbot_service_returns_friendly_fallback_when_both_providers_fail(): void
+    {
+        $geminiMock = $this->createMock(GeminiChatService::class);
+        $groqMock = $this->createMock(GroqChatService::class);
+
+        $groqMock->expects($this->once())
+            ->method('ask')
+            ->willReturn('Terjadi kesalahan: {"error": {"code": 401, "message": "Invalid API Key"}}');
+
+        $geminiMock->expects($this->once())
+            ->method('ask')
+            ->with('Halo')
+            ->willReturn('Terjadi kesalahan: {"error": {"code": 429, "message": "Resource Exhausted"}}');
+
+        Log::shouldReceive('warning')
+            ->once()
+            ->with('Groq Failed/Rate Limited. Falling back to Gemini.');
+
+        Log::shouldReceive('error')
+            ->once()
+            ->with('Gemini fallback failed: Terjadi kesalahan: {"error": {"code": 429, "message": "Resource Exhausted"}}');
+
+        $service = new ChatbotService($geminiMock, $groqMock);
+        $result = $service->ask('Halo');
+
+        $this->assertStringContainsString('Maaf, asisten AI SKARIBOT saat ini sedang mengalami lonjakan antrean', $result);
+    }
 }
