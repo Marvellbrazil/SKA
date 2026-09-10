@@ -71,7 +71,7 @@ JSON Format:
             return null;
         }
 
-        $model = config('services.groq.model', env('GROQ_MODEL', 'llama-3.3-70b-versatile'));
+        $model = config('services.groq.model', env('GROQ_MODEL', 'openai/gpt-oss-120b'));
 
         try {
             $response = $this->getHttpClient([

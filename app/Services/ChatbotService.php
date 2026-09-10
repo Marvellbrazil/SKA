@@ -20,7 +20,7 @@ class ChatbotService
 
     public function ask(string $prompt): string
     {
-        $primaryProvider = strtoupper(env('CHATBOT_PROVIDER', 'GROQ'));
+        $primaryProvider = strtoupper((string) config('services.chatbot.provider', env('CHATBOT_PROVIDER', 'GROQ')));
 
         if ($primaryProvider === 'GROQ') {
             try {
