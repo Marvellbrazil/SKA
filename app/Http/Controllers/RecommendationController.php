@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ChatbotTrait;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class RecommendationController extends Controller
 {
+    use ChatbotTrait;
     public function getRecommendation(Request $request)
     {
         $keyword = trim($request->input('keyword') ?? $request->input('minat') ?? '');
@@ -65,39 +67,42 @@ JSON Format:
 
     private function callGroq(string $systemPrompt, string $userPrompt): ?string
     {
-        $apiKey = $this->sanitizeKey(config('services.groq.api_key', env('GROQ_API_KEY')));
-        if (empty($apiKey)) {
+        $rawKeys = config('services.groq.api_key', env('GROQ_API_KEY'));
+        $keys = $this->getRotatedKeys($this->parseApiKeys($rawKeys), 'groq_recom_key_index');
+        if (empty($keys)) {
             return null;
         }
 
         $model = config('services.groq.model', env('GROQ_MODEL', 'openai/gpt-oss-120b'));
 
-        try {
-            $response = $this->getHttpClient([
-                'Authorization' => 'Bearer ' . $apiKey,
-                'Content-Type' => 'application/json',
-            ])->post('https://api.groq.com/openai/v1/chat/completions', [
-                'model' => $model,
-                'messages' => [
-                    ['role' => 'system', 'content' => $systemPrompt],
-                    ['role' => 'user', 'content' => $userPrompt],
-                ],
-                'temperature' => 0.7,
-                'max_tokens' => 1024,
-                'response_format' => ['type' => 'json_object'],
-            ]);
+        foreach ($keys as $apiKey) {
+            try {
+                $response = $this->getHttpClient([
+                    'Authorization' => 'Bearer ' . $apiKey,
+                    'Content-Type' => 'application/json',
+                ])->post('https://api.groq.com/openai/v1/chat/completions', [
+                    'model' => $model,
+                    'messages' => [
+                        ['role' => 'system', 'content' => $systemPrompt],
+                        ['role' => 'user', 'content' => $userPrompt],
+                    ],
+                    'temperature' => 0.7,
+                    'max_tokens' => 1024,
+                    'response_format' => ['type' => 'json_object'],
+                ]);
 
-            $rawBody = $response->body();
-            Log::info('Groq recommendation raw response: ' . $rawBody);
+                $rawBody = $response->body();
+                Log::info('Groq recommendation raw response: ' . $rawBody);
 
-            if ($response->successful()) {
-                $data = $response->json();
-                return $data['choices'][0]['message']['content'] ?? null;
+                if ($response->successful()) {
+                    $data = $response->json();
+                    return $data['choices'][0]['message']['content'] ?? null;
+                }
+
+                Log::warning('Groq recommendation failed: ' . $rawBody);
+            } catch (\Throwable $e) {
+                Log::warning('Groq recommendation exception: ' . $e->getMessage());
             }
-
-            Log::warning('Groq recommendation failed: ' . $rawBody);
-        } catch (\Throwable $e) {
-            Log::warning('Groq recommendation exception: ' . $e->getMessage());
         }
 
         return null;
@@ -150,17 +155,6 @@ JSON Format:
         }
 
         return null;
-    }
-
-    private function sanitizeKey(?string $key): ?string
-    {
-        if (!$key) {
-            return null;
-        }
-
-        $cleaned = trim(preg_replace('/[\x00-\x1F\x7F\xA0"\']/u', '', $key));
-
-        return !empty($cleaned) ? $cleaned : null;
     }
 
     private function getHttpClient(array $headers = []): PendingRequest

@@ -67,6 +67,46 @@ Data Acuan Sekolah:
         return !empty($cleaned) ? $cleaned : null;
     }
 
+    protected function parseApiKeys(?string $raw): array
+    {
+        if (!$raw) {
+            return [];
+        }
+
+        $parts = explode(',', $raw);
+        $keys = [];
+        foreach ($parts as $part) {
+            $cleaned = $this->sanitizeKey($part);
+            if (!empty($cleaned)) {
+                $keys[] = $cleaned;
+            }
+        }
+
+        return array_values(array_unique($keys));
+    }
+
+    protected function getRotatedKeys(array $keys, string $cacheKey = 'groq_key_index'): array
+    {
+        $count = count($keys);
+        if ($count <= 1) {
+            return $keys;
+        }
+
+        try {
+            $index = (int) cache()->increment($cacheKey);
+        } catch (\Throwable) {
+            $index = random_int(0, $count - 1);
+        }
+
+        $startIndex = abs($index) % $count;
+        $ordered = [];
+        for ($i = 0; $i < $count; $i++) {
+            $ordered[] = $keys[($startIndex + $i) % $count];
+        }
+
+        return $ordered;
+    }
+
     protected function getFriendlyFallbackMessage(): string
     {
         return "Maaf, asisten AI SKARIBOT saat ini sedang mengalami lonjakan antrean. Silakan coba beberapa saat lagi atau hubungi admin sekolah melalui WhatsApp di <a href='https://wa.me/6282133000370' target='_blank' style='color: blue;'>Chat Admin</a>.";

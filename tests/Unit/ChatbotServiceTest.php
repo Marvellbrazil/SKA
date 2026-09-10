@@ -110,4 +110,50 @@ class ChatbotServiceTest extends TestCase
 
         $this->assertStringContainsString('Maaf, asisten AI SKARIBOT saat ini sedang mengalami lonjakan antrean', $result);
     }
+
+    public function test_parse_api_keys_handles_comma_separated_values(): void
+    {
+        $parsed = $this->parseApiKeys(' key1 , key2, "key3" , key1 ');
+        $this->assertEquals(['key1', 'key2', 'key3'], $parsed);
+    }
+
+    public function test_get_rotated_keys_rotates_order(): void
+    {
+        $keys = ['keyA', 'keyB', 'keyC'];
+        $first = $this->getRotatedKeys($keys, 'test_rotation_key');
+        $second = $this->getRotatedKeys($keys, 'test_rotation_key');
+
+        $this->assertCount(3, $first);
+        $this->assertCount(3, $second);
+        $this->assertNotEquals($first, $second);
+    }
+
+    public function test_groq_chat_service_failover_to_next_key_on_429(): void
+    {
+        config(['services.groq.api_key' => 'groq_key_1,groq_key_2']);
+
+        $requestCount = 0;
+        \Illuminate\Support\Facades\Http::fake([
+            'https://api.groq.com/openai/v1/chat/completions' => function (\Illuminate\Http\Client\Request $request) use (&$requestCount) {
+                $requestCount++;
+                if ($request->hasHeader('Authorization', 'Bearer groq_key_1')) {
+                    return \Illuminate\Support\Facades\Http::response(['error' => 'Rate limited'], 429);
+                }
+
+                return \Illuminate\Support\Facades\Http::response([
+                    'choices' => [
+                        ['message' => ['content' => 'Jawaban dari key 2']]
+                    ]
+                ], 200);
+            },
+        ]);
+
+        \Illuminate\Support\Facades\Cache::put('groq_chat_key_index', 1);
+
+        $groqService = new GroqChatService();
+        $reply = $groqService->ask('Halo');
+
+        $this->assertEquals('Jawaban dari key 2', $reply);
+        $this->assertGreaterThanOrEqual(2, $requestCount);
+    }
 }

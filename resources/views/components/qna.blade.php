@@ -51,11 +51,28 @@
 const chatForm = document.getElementById('chatForm');
 const chatbox = document.querySelector('#chatbox');
 const messageInput = document.getElementById('message');
+const submitBtn = document.getElementById('submitBtn');
 const questionElement = document.getElementById('question');
+const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
+let isBusy = false;
+
+function setChatBusy(busy) {
+    isBusy = busy;
+    submitBtn.disabled = busy;
+    messageInput.disabled = busy;
+
+    if (busy) {
+        submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        questionElement.classList.add('pointer-events-none', 'opacity-50');
+    } else {
+        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        questionElement.classList.remove('pointer-events-none', 'opacity-50');
+        setTimeout(() => messageInput.focus(), 50);
+    }
+}
 
 function resizeTextarea() {
     messageInput.style.overflowY = 'hidden';
-
     messageInput.style.height = 'auto';
 
     let scHeight = messageInput.scrollHeight;
@@ -73,6 +90,7 @@ function resizeTextarea() {
 messageInput.addEventListener('input', resizeTextarea);
 
 function putQuestion() {
+    if (isBusy) return;
     const text = questionElement.textContent.trim();
     messageInput.value = text;
 
@@ -82,12 +100,63 @@ function putQuestion() {
     }, 50);
 }
 
+function loadChatHistory() {
+    try {
+        const raw = localStorage.getItem('skaribot_chat_history');
+        if (!raw) return;
+
+        const history = JSON.parse(raw);
+        if (!Array.isArray(history)) {
+            localStorage.removeItem('skaribot_chat_history');
+            return;
+        }
+
+        const now = Date.now();
+        const valid = history.filter(item => item && item.timestamp && (now - item.timestamp < ONE_WEEK_MS));
+
+        if (valid.length !== history.length) {
+            if (valid.length === 0) {
+                localStorage.removeItem('skaribot_chat_history');
+            } else {
+                localStorage.setItem('skaribot_chat_history', JSON.stringify(valid));
+            }
+        }
+
+        valid.forEach(msg => {
+            appendMessage(msg.sender, msg.text, false);
+        });
+    } catch (e) {
+        console.error('Failed to load chat history:', e);
+    }
+}
+
+function saveChatMessage(sender, text) {
+    try {
+        const raw = localStorage.getItem('skaribot_chat_history');
+        const history = raw ? JSON.parse(raw) : [];
+        const now = Date.now();
+        const valid = Array.isArray(history)
+            ? history.filter(item => item && item.timestamp && (now - item.timestamp < ONE_WEEK_MS))
+            : [];
+
+        valid.push({ sender, text, timestamp: now });
+        localStorage.setItem('skaribot_chat_history', JSON.stringify(valid));
+    } catch (e) {
+        console.error('Failed to save chat message:', e);
+    }
+}
+
 chatForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (isBusy) return;
+
     const message = messageInput.value.trim();
     if (!message) return;
 
-    appendMessage('user', message);
+    setChatBusy(true);
+
+    appendMessage('user', message, false);
+    saveChatMessage('user', message);
 
     messageInput.value = '';
     resizeTextarea();
@@ -110,10 +179,16 @@ chatForm.addEventListener('submit', async (e) => {
 
         const data = await res.json();
         typingBubble.remove();
-        appendMessage('bot', data.reply);
+        appendMessage('bot', data.reply, true, () => {
+            setChatBusy(false);
+        });
+        saveChatMessage('bot', data.reply);
     } catch (err) {
         typingBubble.remove();
-        appendMessage('bot', "Maaf, ada gangguan koneksi. Coba lagi ya!");
+        const errMsg = "Maaf, ada gangguan koneksi. Coba lagi ya!";
+        appendMessage('bot', errMsg, true, () => {
+            setChatBusy(false);
+        });
         console.error(err);
     }
 });
@@ -121,23 +196,52 @@ chatForm.addEventListener('submit', async (e) => {
 messageInput.addEventListener('keydown', (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
-        chatForm.dispatchEvent(new Event('submit'));
+        if (!isBusy) {
+            chatForm.dispatchEvent(new Event('submit'));
+        }
     }
 });
 
 function scrollToBottom() {
-    chatbox.scrollTo({
-        top: chatbox.scrollHeight,
-        behavior: 'smooth'
-    });
+    chatbox.scrollTop = chatbox.scrollHeight;
 }
 
-function appendMessage(sender, text) {
+function appendMessage(sender, text, animate = false, onComplete = null) {
     const div = document.createElement('div');
     div.classList.add('bubble', sender);
-    div.innerHTML = text;
     chatbox.appendChild(div);
-    scrollToBottom();
+
+    if (!animate) {
+        div.innerHTML = text;
+        scrollToBottom();
+        if (onComplete) onComplete();
+        return;
+    }
+
+    const tokens = text.match(/<[^>]+>|[^<]/g) || [];
+    if (tokens.length === 0) {
+        div.innerHTML = text;
+        scrollToBottom();
+        if (onComplete) onComplete();
+        return;
+    }
+
+    const total = tokens.length;
+    const step = Math.max(1, Math.ceil(total / 40));
+    let currentIndex = 0;
+
+    const timer = setInterval(() => {
+        currentIndex = Math.min(total, currentIndex + step);
+        div.innerHTML = tokens.slice(0, currentIndex).join('');
+        scrollToBottom();
+
+        if (currentIndex >= total) {
+            clearInterval(timer);
+            div.innerHTML = text;
+            scrollToBottom();
+            if (onComplete) onComplete();
+        }
+    }, 20);
 }
 
 function appendTyping() {
@@ -170,5 +274,6 @@ setInterval(() => {
 
 document.addEventListener('DOMContentLoaded', () => {
     questionElement.textContent = questions[0];
+    loadChatHistory();
 });
 </script>
