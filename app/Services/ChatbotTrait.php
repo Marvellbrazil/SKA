@@ -117,4 +117,17 @@ Data Acuan Sekolah:
     {
         return "Maaf, asisten AI SKARIBOT saat ini sedang mengalami lonjakan antrean. Silakan coba beberapa saat lagi atau hubungi admin sekolah melalui WhatsApp di <a href='https://wa.me/6282133000370' target='_blank' style='color: blue;'>Chat Admin</a>.";
     }
+
+    public function formatChatResponse(string $response): string
+    {
+        $text = stripslashes($response);
+        $text = preg_replace('/\\\\([*_\-#`~\[\]\(\)])/u', '$1', $text);
+        $text = preg_replace('/^[ \t]*[-*]\s+/m', '• ', $text);
+        $text = preg_replace('/^#{1,6}\s*(.+)$/m', '<b>$1</b>', $text);
+        $text = preg_replace('/\*\*(.*?)\*\*/s', '<b>$1</b>', $text);
+        $text = preg_replace('/(?<!\*)\*([^\*\n]+)\*(?!\*)/u', '<b>$1</b>', $text);
+        $text = preg_replace('/`{1,3}(.*?)`{1,3}/s', '$1', $text);
+
+        return trim($text);
+    }
 }

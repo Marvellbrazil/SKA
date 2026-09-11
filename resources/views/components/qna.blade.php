@@ -206,21 +206,33 @@ function scrollToBottom() {
     chatbox.scrollTop = chatbox.scrollHeight;
 }
 
+function formatBotMessage(text) {
+    if (!text) return '';
+    return text
+        .replace(/\\([*_`~[\]()#\\])/g, '$1')
+        .replace(/^[ \t]*[-*]\s+/gm, '• ')
+        .replace(/^#{1,6}\s*(.+)$/gm, '<b>$1</b>')
+        .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+        .replace(/(^|[^*])\*(?!\*)([^*\n]+)\*(?!\*)/g, '$1<b>$2</b>')
+        .replace(/`{1,3}(.*?)`{1,3}/g, '$1');
+}
+
 function appendMessage(sender, text, animate = false, onComplete = null) {
+    const content = sender === 'bot' ? formatBotMessage(text) : text;
     const div = document.createElement('div');
     div.classList.add('bubble', sender);
     chatbox.appendChild(div);
 
     if (!animate) {
-        div.innerHTML = text;
+        div.innerHTML = content;
         scrollToBottom();
         if (onComplete) onComplete();
         return;
     }
 
-    const tokens = text.match(/<[^>]+>|[^<]/g) || [];
+    const tokens = content.match(/<[^>]+>|[^<]/g) || [];
     if (tokens.length === 0) {
-        div.innerHTML = text;
+        div.innerHTML = content;
         scrollToBottom();
         if (onComplete) onComplete();
         return;
@@ -237,7 +249,7 @@ function appendMessage(sender, text, animate = false, onComplete = null) {
 
         if (currentIndex >= total) {
             clearInterval(timer);
-            div.innerHTML = text;
+            div.innerHTML = content;
             scrollToBottom();
             if (onComplete) onComplete();
         }

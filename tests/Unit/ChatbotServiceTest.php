@@ -169,4 +169,18 @@ class ChatbotServiceTest extends TestCase
         $this->assertStringContainsString('DILARANG mengait-ngaitkan pertanyaan umum', $prompt);
         $this->assertStringContainsString('WAJIB MENOLAK', $prompt);
     }
+
+    public function test_format_chat_response_cleans_markdown_and_escapes(): void
+    {
+        $input = "### Judul Bagian\nBerikut contoh **teks tebal** dan *teks miring*:\n- Poin 1\n* Poin 2\nAda escape \\*bintang\\* dan \\[tanda kurung\\].";
+        $formatted = $this->formatChatResponse($input);
+
+        $this->assertStringContainsString('<b>Judul Bagian</b>', $formatted);
+        $this->assertStringContainsString('<b>teks tebal</b>', $formatted);
+        $this->assertStringContainsString('• Poin 1', $formatted);
+        $this->assertStringContainsString('• Poin 2', $formatted);
+        $this->assertStringNotContainsString('**', $formatted);
+        $this->assertStringNotContainsString('\*', $formatted);
+        $this->assertStringNotContainsString('\[', $formatted);
+    }
 }
