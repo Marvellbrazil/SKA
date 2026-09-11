@@ -6,7 +6,10 @@ use App\Services\ChatbotService;
 use App\Services\ChatbotTrait;
 use App\Services\GeminiChatService;
 use App\Services\GroqChatService;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
@@ -133,27 +136,37 @@ class ChatbotServiceTest extends TestCase
         config(['services.groq.api_key' => 'groq_key_1,groq_key_2']);
 
         $requestCount = 0;
-        \Illuminate\Support\Facades\Http::fake([
-            'https://api.groq.com/openai/v1/chat/completions' => function (\Illuminate\Http\Client\Request $request) use (&$requestCount) {
+        Http::fake([
+            'https://api.groq.com/openai/v1/chat/completions' => function (Request $request) use (&$requestCount) {
                 $requestCount++;
                 if ($request->hasHeader('Authorization', 'Bearer groq_key_1')) {
-                    return \Illuminate\Support\Facades\Http::response(['error' => 'Rate limited'], 429);
+                    return Http::response(['error' => 'Rate limited'], 429);
                 }
 
-                return \Illuminate\Support\Facades\Http::response([
+                return Http::response([
                     'choices' => [
-                        ['message' => ['content' => 'Jawaban dari key 2']]
-                    ]
+                        ['message' => ['content' => 'Jawaban dari key 2']],
+                    ],
                 ], 200);
             },
         ]);
 
-        \Illuminate\Support\Facades\Cache::put('groq_chat_key_index', 1);
+        Cache::put('groq_chat_key_index', 1);
 
-        $groqService = new GroqChatService();
+        $groqService = new GroqChatService;
         $reply = $groqService->ask('Halo');
 
         $this->assertEquals('Jawaban dari key 2', $reply);
         $this->assertGreaterThanOrEqual(2, $requestCount);
+    }
+
+    public function test_system_prompt_strictly_restricts_scope_and_refuses_general_coding(): void
+    {
+        $prompt = $this->getSystemPrompt('Dummy context');
+
+        $this->assertStringContainsString('DILARANG KERAS menjawab pertanyaan di luar informasi SMK PGRI 3 Malang', $prompt);
+        $this->assertStringContainsString('pembuatan script/kode pemrograman', $prompt);
+        $this->assertStringContainsString('DILARANG mengait-ngaitkan pertanyaan umum', $prompt);
+        $this->assertStringContainsString('WAJIB MENOLAK', $prompt);
     }
 }
