@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Profil;
 use App\Services\ChatbotService;
 use App\Services\ChatbotTrait;
 use App\Services\GeminiChatService;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 class ChatbotServiceTest extends TestCase
@@ -182,5 +184,38 @@ class ChatbotServiceTest extends TestCase
         $this->assertStringNotContainsString('**', $formatted);
         $this->assertStringNotContainsString('\*', $formatted);
         $this->assertStringNotContainsString('\[', $formatted);
+    }
+
+    public function test_get_database_context_extracts_school_profile_when_database_is_populated(): void
+    {
+        $migration = require database_path('migrations/2025_10_16_034545_create_profils_table.php');
+        $migration->up();
+
+        Profil::create([
+            'heroTitle' => 'SKARIGA',
+            'profilDesc' => 'Sejarah SKARIGA sejak 1986',
+            'visiImageName' => 'Moch. Lukman Hakim, S.T, M.M.',
+            'visiDesc' => 'Menjadi SMK Unggul',
+            'youtubeSrc' => 'https://youtube.com',
+        ]);
+
+        Cache::forget('chatbot_school_context');
+        $context = $this->getDatabaseContext();
+
+        $this->assertNotNull($context);
+        $this->assertStringContainsString('Kepala Sekolah: Moch. Lukman Hakim, S.T, M.M.', $context);
+        $this->assertStringContainsString('Visi: Menjadi SMK Unggul', $context);
+        $this->assertStringContainsString('Sejarah SKARIGA sejak 1986', $context);
+    }
+
+    public function test_get_context_falls_back_to_file_when_db_is_empty(): void
+    {
+        Cache::forget('chatbot_school_context');
+        if (Schema::hasTable('profils')) {
+            Profil::query()->delete();
+        }
+
+        $context = $this->getContext();
+        $this->assertStringContainsString('Profil SMK PGRI 3 Malang', $context);
     }
 }

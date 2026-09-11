@@ -2,13 +2,32 @@
 
 namespace App\Services;
 
+use App\Models\Berita;
+use App\Models\Ekskul;
+use App\Models\Jurusan;
+use App\Models\Prestasi;
+use App\Models\Profil;
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Schema;
 
 trait ChatbotTrait
 {
     protected function getContext(): string
+    {
+        return Cache::remember('chatbot_school_context', 600, function () {
+            $dbContext = $this->getDatabaseContext();
+            if (! empty($dbContext)) {
+                return $dbContext;
+            }
+
+            return $this->getFileContext();
+        });
+    }
+
+    protected function getFileContext(): string
     {
         $summaryFile = storage_path('app/data/summary_sekolah.txt');
 
@@ -17,11 +36,101 @@ trait ChatbotTrait
         }
 
         $context = '';
-        foreach (File::files(storage_path('app/data')) as $file) {
-            $context .= File::get($file->getPathname())."\n";
+        if (File::isDirectory(storage_path('app/data'))) {
+            foreach (File::files(storage_path('app/data')) as $file) {
+                $context .= File::get($file->getPathname())."\n";
+            }
         }
 
         return mb_strimwidth($context, 0, 3000, '...');
+    }
+
+    protected function getDatabaseContext(): ?string
+    {
+        try {
+            if (! Schema::hasTable('profils')) {
+                return null;
+            }
+
+            $profil = Profil::with('misis')->first();
+            if (! $profil) {
+                return null;
+            }
+
+            $sections = [];
+
+            $kepalaSekolah = ! empty($profil->visiImageName) ? $profil->visiImageName : 'M. Lukman Hakim, ST., MM';
+            $profilText = "=== Profil SMK PGRI 3 Malang (SKARIGA) ===\n";
+            $profilText .= "Nama: SMK PGRI 3 Malang (SKARIGA)\n";
+            $profilText .= "Kepala Sekolah: {$kepalaSekolah}\n";
+            if (! empty($profil->visiDesc)) {
+                $profilText .= "Visi: {$profil->visiDesc}\n";
+            }
+            if ($profil->misis && $profil->misis->isNotEmpty()) {
+                $misiList = $profil->misis->pluck('misiTitle')->filter()->implode(', ');
+                $profilText .= "Misi: {$misiList}\n";
+            }
+            if (! empty($profil->profilDesc)) {
+                $profilText .= "Sejarah & Profil: {$profil->profilDesc}\n";
+            }
+            $sections[] = trim($profilText);
+
+            if (Schema::hasTable('jurusans')) {
+                $jurusans = Jurusan::all();
+                if ($jurusans->isNotEmpty()) {
+                    $jurusanText = "=== PROGRAM KEAHLIAN / JURUSAN ===\n";
+                    foreach ($jurusans as $j) {
+                        $desc = ! empty($j->deskripsi) ? " - {$j->deskripsi}" : '';
+                        $dept = ! empty($j->departemen) ? " [Dept: {$j->departemen}]" : '';
+                        $jurusanText .= "• {$j->jurusan}{$dept}{$desc}\n";
+                    }
+                    $sections[] = trim($jurusanText);
+                }
+            }
+
+            if (Schema::hasTable('ekskuls')) {
+                $ekskuls = Ekskul::all();
+                if ($ekskuls->isNotEmpty()) {
+                    $ekskulList = $ekskuls->pluck('title')->filter()->implode(', ');
+                    $sections[] = "=== EKSTRAKURIKULER ===\n{$ekskulList}";
+                }
+            }
+
+            if (Schema::hasTable('prestasis')) {
+                $prestasis = Prestasi::latest()->take(5)->get();
+                if ($prestasis->isNotEmpty()) {
+                    $prestasiText = "=== PRESTASI TERBARU ===\n";
+                    foreach ($prestasis as $p) {
+                        $sub = ! empty($p->subjudul) ? " ({$p->subjudul})" : '';
+                        $prestasiText .= "• {$p->nama}{$sub}\n";
+                    }
+                    $sections[] = trim($prestasiText);
+                }
+            }
+
+            if (Schema::hasTable('beritas')) {
+                $beritas = Berita::latest()->take(3)->get();
+                if ($beritas->isNotEmpty()) {
+                    $beritaText = "=== BERITA TERKINI ===\n";
+                    foreach ($beritas as $b) {
+                        $beritaText .= "• {$b->title}\n";
+                    }
+                    $sections[] = trim($beritaText);
+                }
+            }
+
+            $contactText = "=== LOKASI & KONTAK RESMI ===\n";
+            $contactText .= "Alamat: Jl. Raya Tlogomas Gg. 9 No.29, Lowokwaru, Kota Malang, Jawa Timur 65144\n";
+            $contactText .= "WhatsApp / Call Center: +62-821-3300-0370\n";
+            $contactText .= "Telepon: (0341) 554383 / (0341) 362065\n";
+            $contactText .= "Website: https://smkpgri3malang.sch.id\n";
+            $contactText .= 'Google Maps: https://maps.app.goo.gl/WnFCmvAJwg9GwM4A8';
+            $sections[] = $contactText;
+
+            return implode("\n\n", $sections);
+        } catch (\Throwable) {
+            return null;
+        }
     }
 
     protected function getSystemPrompt(string $context): string

@@ -1,12 +1,14 @@
 <?php
+
 // app/Http/Controllers/Admin/ProfilController.php
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Profil;
 use App\Models\Misi;
+use App\Models\Profil;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class ProfilController extends Controller
@@ -15,7 +17,7 @@ class ProfilController extends Controller
     {
         $profil = Profil::with('misis')->first();
 
-        if (!$profil) {
+        if (! $profil) {
             $profil = $this->createDefaultProfil();
         }
 
@@ -25,6 +27,7 @@ class ProfilController extends Controller
     public function edit()
     {
         $profil = Profil::with('misis')->firstOrFail();
+
         return view('admin.profil.edit', compact('profil'));
     }
 
@@ -35,36 +38,36 @@ class ProfilController extends Controller
         $maxSize = 1024 * 5; // 1204 * MB = KB
 
         $request->validate([
-            'heroImage' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:' . $maxSize,
+            'heroImage' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:'.$maxSize,
             'heroTitle' => 'required|max:30',
 
-            'profilImage1' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:' . $maxSize,
-            'profilImage2' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:' . $maxSize,
-            'profilImage3' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:' . $maxSize,
+            'profilImage1' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:'.$maxSize,
+            'profilImage2' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:'.$maxSize,
+            'profilImage3' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:'.$maxSize,
             'profilDesc' => 'required|max:500',
 
-            'visiImage' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:' . $maxSize,
+            'visiImage' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:'.$maxSize,
             'visiImageName' => 'required|max:200',
             'visiDesc' => 'required|max:500',
 
             'youtubeSrc' => 'required|url',
 
             // Validation for misi (array)
-            'misiImage.*' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:' . $maxSize,
+            'misiImage.*' => 'nullable|image|mimes:jpg,jpeg,png,svg,webp|max:'.$maxSize,
             'misiTitle.*' => 'required|max:40',
             'misiDesc.*' => 'required|max:500',
             'misiColor.*' => 'required|in:BLUE,GREEN,ORANGE,RED',
-            'misiId.*' => 'nullable|exists:misis,id'
+            'misiId.*' => 'nullable|exists:misis,id',
         ]);
 
         // Update main profil data
         $data = $request->only([
-            'heroTitle', 'profilDesc', 'visiImageName', 'visiDesc', 'youtubeSrc'
+            'heroTitle', 'profilDesc', 'visiImageName', 'visiDesc', 'youtubeSrc',
         ]);
 
         // Handle file uploads for profil
         $profilImageFields = [
-            'heroImage', 'profilImage1', 'profilImage2', 'profilImage3', 'visiImage'
+            'heroImage', 'profilImage1', 'profilImage2', 'profilImage3', 'visiImage',
         ];
 
         foreach ($profilImageFields as $field) {
@@ -85,7 +88,7 @@ class ProfilController extends Controller
                     'misiTitle' => $title,
                     'misiDesc' => $request->misiDesc[$index],
                     'misiColor' => $request->misiColor[$index],
-                    'order' => $index
+                    'order' => $index,
                 ];
 
                 // Handle misi image upload
@@ -106,6 +109,8 @@ class ProfilController extends Controller
             }
         }
 
+        Cache::forget('chatbot_school_context');
+
         return redirect()->route('admin.profil.index')->with('success', 'Profil berhasil diperbarui!');
     }
 
@@ -121,7 +126,7 @@ class ProfilController extends Controller
             'visiImage' => 'default.svg',
             'visiImageName' => 'Visi Sekolah',
             'visiDesc' => 'Menjadi sekolah kejuruan unggulan yang menghasilkan lulusan berkompetensi tinggi dan berkarakter kuat.',
-            'youtubeSrc' => 'https://www.youtube.com/embed/dQw4w9WgXcQ'
+            'youtubeSrc' => 'https://www.youtube.com/embed/dQw4w9WgXcQ',
         ]);
 
         // Create default 4 misi
@@ -129,7 +134,7 @@ class ProfilController extends Controller
             ['Misi Pendidikan', 'Menyelenggarakan pendidikan berkualitas dengan kurikulum relevan.', 'BLUE'],
             ['Misi Karakter', 'Membentuk karakter siswa yang berintegritas dan bertanggung jawab.', 'GREEN'],
             ['Misi Teknologi', 'Mengintegrasikan teknologi dalam proses pembelajaran.', 'ORANGE'],
-            ['Misi Industri', 'Menjalin kemitraan dengan dunia industri dan dunia kerja.', 'RED']
+            ['Misi Industri', 'Menjalin kemitraan dengan dunia industri dan dunia kerja.', 'RED'],
         ];
 
         foreach ($defaultMisis as $index => $misi) {
@@ -138,7 +143,7 @@ class ProfilController extends Controller
                 'misiTitle' => $misi[0],
                 'misiDesc' => $misi[1],
                 'misiColor' => $misi[2],
-                'order' => $index
+                'order' => $index,
             ]);
         }
 
