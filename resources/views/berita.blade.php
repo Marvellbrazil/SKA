@@ -23,6 +23,7 @@
     @endpush
 
     <div class="min-h-screen relative z-0">
+        <h1 class="sr-only">Berita SMK PGRI 3 Malang</h1>
         @php
         $beritaArray = $beritas->values();
         $sections = [

@@ -11,6 +11,8 @@
                 </div>
                 <div class="absolute bottom-8 left-4 md:left-10 z-10">
                     <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg leading-tight">
+                        <span class="sr-only">Pendaftaran Siswa Baru SMK PGRI 3 Malang</span>
+                    </h1>
                 </div>
                 <div class="absolute bottom-8 right-4 md:right-10 z-10 flex flex-col sm:flex-row gap-3">
                     <a href="https://wa.me/6282133000370"

@@ -11,10 +11,7 @@
                 </div>
                 <div class="absolute bottom-8 left-3.5 md:left-10 z-10">
                     <h1 class="text-5xl md:text-7xl font-bold text-white drop-shadow-lg hover-scale">
-                        TEMUKAN
-                    </h1>
-                    <h1 class="text-5xl md:text-7xl font-bold text-white drop-shadow-lg hover-scale">
-                        POTENSIMU!
+                        <span class="sr-only">Jurusan SMK di Malang - </span>TEMUKAN<br>POTENSIMU!
                     </h1>
                 </div>
             </section>

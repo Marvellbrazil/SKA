@@ -33,7 +33,7 @@
 
         <section class="py-12 md:py-16 animate-fade-in" id="alumni-section">
             <div class="max-w-full container mx-auto">
-                <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 text-gray-800">ALUMNI HEBAT!</h2>
+                <h1 class="text-3xl md:text-5xl font-bold text-center mb-4 text-gray-800">ALUMNI HEBAT!</h1>
                 <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Alumni-alumni berprestasi SMK PGRI 3 MALANG
                     yang telah sukses di dunia kerja</p>
 

@@ -1,5 +1,6 @@
 <x-layout title="Prestasi Siswa - SMK PGRI 3 Malang" description="Daftar prestasi dan penghargaan yang diraih siswa SMK PGRI 3 Malang (Skariga).">
     <div class="h-full container mx-auto px-4 py-6">
+        <h1 class="sr-only">Prestasi Siswa SMK PGRI 3 Malang</h1>
         <section class="hidden lg:grid w-full container mx-auto py-12 grid-cols-2 gap-10 relative z-10">
             <div class="flex flex-col justify-center space-y-6">
                 <div class="flex items-center gap-3 mb-4">

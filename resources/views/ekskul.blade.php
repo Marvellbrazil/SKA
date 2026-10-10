@@ -8,7 +8,7 @@
             </div>
             <div class="absolute bottom-8 left-3.5 md:left-10 z-10">
                 <h1 class="text-5xl md:text-7xl font-bold text-white drop-shadow-lg hover-scale cursor-default">
-                    KEMBANGKAN<br>BAKATMU!
+                    <span class="sr-only">Ekstrakurikuler SMK PGRI 3 Malang - </span>KEMBANGKAN<br>BAKATMU!
                 </h1>
             </div>
         </section>

@@ -27,7 +27,7 @@
                         <div class="mb-6">
                             <h1
                                 class="text-6xl md:text-4xl lg:text-6xl font-bebas mb-4 leading-tight text-customOrange">
-                                SUCCESS BY<br><span class="text-white">DISCIPLINE</span></h1>
+                                <span class="sr-only">SMK PGRI 3 Malang (Skariga) - </span>SUCCESS BY<br><span class="text-white">DISCIPLINE</span></h1>
                             <p class="text-xl md:text-2xl text-blue-100 mb-6">Membentuk siswa cerdas, terampil, dan
                                 berkarakter</p>
                         </div>
