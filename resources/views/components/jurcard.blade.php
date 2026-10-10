@@ -1,4 +1,4 @@
-@props(['image', 'title', 'departement', 'deskripsi' => ''])
+@props(['image', 'title', 'departement', 'deskripsi' => '', 'slug' => null])
 
 @php
 $deptColors = [
@@ -46,6 +46,9 @@ $deptLower = strtolower($departement);
                 <div>
                     <h4 class="font-bold text-xl text-white drop-shadow-lg">{{ $title }}</h4>
                     <p class="text-sm text-gray-200">{{ $departement }}</p>
+                    @if ($slug)
+                    <a href="{{ route('jurusan.show', $slug) }}" onclick="event.stopPropagation()" class="inline-block mt-1 text-xs font-semibold text-customOrange underline">Lihat detail</a>
+                    @endif
                 </div>
             </div>
         </div>

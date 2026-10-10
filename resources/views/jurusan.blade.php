@@ -113,7 +113,7 @@
                         @foreach ($jurusans as $jurusan)
                         @if ($jurusan->departemen == "ELEKTRO")
                         <x-jurcard title="{!! $jurusan->jurusan !!}" image="{{ !is_null($jurusan->gambar) ? $assetBase . '/storage/' . $jurusan->gambar : 'https://placehold.co/600x400' }}"
-                            departement="{{ $jurusan->departemen }}" loading="lazy">
+                            departement="{{ $jurusan->departemen }}" slug="{{ $jurusan->slug }}" loading="lazy">
                             {{ $jurusan->deskripsi }}
                         </x-jurcard>
                         @endif
@@ -130,7 +130,7 @@
                         @foreach ($jurusans as $jurusan)
                         @if ($jurusan->departemen == "OTOMOTIF")
                         <x-jurcard title="{!! $jurusan->jurusan !!}" image="{{ !is_null($jurusan->gambar) ? $assetBase . '/storage/' . $jurusan->gambar : 'https://placehold.co/600x400' }}"
-                            departement="{{ $jurusan->departemen }}" loading="lazy">
+                            departement="{{ $jurusan->departemen }}" slug="{{ $jurusan->slug }}" loading="lazy">
                             {{ $jurusan->deskripsi }}
                         </x-jurcard>
                         @endif
@@ -147,7 +147,7 @@
                         @foreach ($jurusans as $jurusan)
                         @if ($jurusan->departemen == "PEMESINAN")
                         <x-jurcard title="{!! $jurusan->jurusan !!}" image="{{ !is_null($jurusan->gambar) ? $assetBase . '/storage/' . $jurusan->gambar : 'https://placehold.co/600x400' }}"
-                            departement="{{ $jurusan->departemen }}" loading="lazy">
+                            departement="{{ $jurusan->departemen }}" slug="{{ $jurusan->slug }}" loading="lazy">
                             {{ $jurusan->deskripsi }}
                         </x-jurcard>
                         @endif
@@ -164,7 +164,7 @@
                         @foreach ($jurusans as $jurusan)
                         @if ($jurusan->departemen == "TIK")
                         <x-jurcard title="{!! $jurusan->jurusan !!}" image="{{ !is_null($jurusan->gambar) ? $assetBase . '/storage/' . $jurusan->gambar : 'https://placehold.co/600x400' }}"
-                            departement="{{ $jurusan->departemen }}" loading="lazy">
+                            departement="{{ $jurusan->departemen }}" slug="{{ $jurusan->slug }}" loading="lazy">
                             {{ $jurusan->deskripsi }}
                         </x-jurcard>
                         @endif

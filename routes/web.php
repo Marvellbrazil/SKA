@@ -80,6 +80,7 @@ Route::post('/jurusan/increment-stats', [JurusanController::class, 'incrementSta
     ->withoutMiddleware(['web']);
 
 Route::get('/jurusan/get-stats', [JurusanController::class, 'getStats'])->name('jurusan.get-stats');
+Route::get('/jurusan/{jurusan:slug}', [JurusanController::class, 'show'])->name('jurusan.show');
 Route::get('/berita/{berita}', [BeritaController::class, 'show'])->name('berita.show');
 
 // Chatbot routes

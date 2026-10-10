@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Jurusan;
 use App\Models\JurusanStatistik;
+use App\Services\Seo\SeoService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -18,6 +20,27 @@ class JurusanController extends Controller
             return $jurusan;
         });
         return view('jurusan', compact('jurusans'));
+    }
+
+    public function show(Jurusan $jurusan, SeoService $seo): View
+    {
+        $jurusan->jurusan = html_entity_decode($jurusan->jurusan);
+
+        $jurusanSerupa = Jurusan::query()
+            ->where('departemen', $jurusan->departemen)
+            ->whereKeyNot($jurusan->getKey())
+            ->orderBy('jurusan')
+            ->get();
+
+        return view('jurusan-detail', [
+            'jurusan' => $jurusan,
+            'jurusanSerupa' => $jurusanSerupa,
+            'image' => $seo->storageUrl($jurusan->gambar),
+            'schema' => [
+                $seo->breadcrumbs([['Beranda', '/'], ['Jurusan', 'jurusan'], [$jurusan->jurusan, 'jurusan/'.$jurusan->slug]]),
+                $seo->program($jurusan),
+            ],
+        ]);
     }
 
     public function incrementStats(Request $request)
