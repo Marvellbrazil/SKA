@@ -11,7 +11,6 @@ import "../css/app.css";
 import Alpine from "alpinejs";
 import Swiper from "swiper";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { initChartGabungan, initJurusanChart } from "./chart";
 import { initScrollButtons } from "./scroll";
 import MicroModal from "micromodal";
 import "swiper/css";
@@ -236,6 +235,18 @@ document.addEventListener("click", (e) => {
     MicroModal.show("newsModal");
 });
 
+const loadCharts = (): void => {
+    const hasCombinedChart = document.getElementById("chartGabungan") !== null;
+    const hasMajorChart = document.getElementById("jurusanPieChart") !== null;
+
+    if (!hasCombinedChart && !hasMajorChart) return;
+
+    import("./chart").then(({ initChartGabungan, initJurusanChart }): void => {
+        if (hasCombinedChart) initChartGabungan();
+        if (hasMajorChart) initJurusanChart();
+    });
+};
+
 // INIT on DOMContentLoaded
 document.addEventListener("DOMContentLoaded", (): void => {
     // console.log("🏫 SMK PGRI 3 Malang - Initializing...");
@@ -252,8 +263,7 @@ document.addEventListener("DOMContentLoaded", (): void => {
     initializeNewsSlider();
     initSwiper();
     initScrollButtons();
-    initChartGabungan();
-    initJurusanChart();
+    loadCharts();
 });
 
 export { showNews, initializeNewsSlider };
