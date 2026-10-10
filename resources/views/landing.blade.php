@@ -1,4 +1,7 @@
 <x-layout>
+    @push('styles')
+    <link rel="preload" as="image" href="{{ $assetBase }}/assets/Hero1.webp" type="image/webp" fetchpriority="high">
+    @endpush
     @vite(['resources/css/landing.css', 'resources/js/landing.js'])
     <div class="relative overflow-hidden bg-white">
         <div class="relative bg-gradient-to-r text-white">
