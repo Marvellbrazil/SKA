@@ -6,8 +6,8 @@ return [
     'site_name' => 'SMK PGRI 3 Malang',
     'author' => 'CTRL + V',
     'locale' => 'id_ID',
-    'title' => 'SMK PGRI 3 Malang (Skariga) - Sekolah Vokasi Siap Kerja',
-    'description' => 'SMK PGRI 3 Malang (Skariga), sekolah kejuruan di Tlogomas, Kota Malang dengan 4 departemen: Elektro, Otomotif, Pemesinan, dan TIK. Daftar sekarang.',
+    'title' => 'SMK PGRI 3 Malang',
+    'description' => 'SMK PGRI 3 Malang, sekolah kejuruan di Tlogomas, Kota Malang dengan 4 departemen: Elektro, Otomotif, Pemesinan, dan TIK. Daftar sekarang.',
     'image' => '/assets/gedung-seluruh.jpg',
     'google_verification' => env('GOOGLE_SITE_VERIFICATION'),
     'organization' => [
