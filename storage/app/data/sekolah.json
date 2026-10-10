@@ -41,16 +41,10 @@
         {"nama": "Robotika", "keterangan": "Teknologi robotika"}
     ],
     "fasilitas": [
-        "Laboratorium Komputer",
-        "Laboratorium Bahasa",
-        "Laboratorium Listrik",
-        "Laboratorium Otomotif",
-        "Laboratorium Mesin",
-        "Perpustakaan",
-        "Aula",
-        "Lapangan Olahraga",
-        "Masjid",
-        "Kantin",
-        "Wifi Campus"
+        "Ruang kelas",
+        "Laboratorium dan bengkel praktik",
+        "Lapangan basket dan futsal",
+        "Tablet gratis saat pendaftaran",
+        "Sarana penunjang lainnya seperti BKI (Badan Kejasama Industri), Ruang BK, Kesiswaan, UKS, Ruang Kabid, Parkiran, dan lain-lain"
     ]
 }

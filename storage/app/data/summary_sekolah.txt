@@ -48,7 +48,7 @@ Dokumen Persyaratan:
 - Fotokopi KTP orang tua/wali.
 - Ijazah / Surat Keterangan Lulus (SKL) SMP/sederajat atau nilai rapor semester terakhir.
 - Pas foto ukuran 3x4 cm berwarna dengan background/latar belakang MERAH atau BIRU.
-- TIDAK PERLU surat keterangan sehat (tidak disyaratkan / tidak diperlukan).
+(Aturan: Jangan sebutkan catatan mengenai surat keterangan sehat pada dokumen persyaratan umum. Hanya sebutkan bahwa surat sehat tidak diperlukan jika pengguna bertanya tentang surat sehat/kesehatan).
 
 Alur Pendaftaran Offline:
 1. Datang ke Jl. Raya Tlogomas Gg. 9 No.29, Lowokwaru, Malang dengan membawa berkas persyaratan.
@@ -62,26 +62,37 @@ Alur Pendaftaran Online:
 2. Kirim salam & tujuan pendaftaran calon siswa.
 3. Pendaftaran dipandu secara digital oleh staf panitia PPDB hingga selesai.
 
-=== KERJASAMA INDUSTRI & FASILITAS ===
+=== FASILITAS SEKOLAH ===
+Fasilitas yang ada di SMK PGRI 3 Malang antara lain:
+• Ruang kelas
+• Laboratorium dan bengkel praktik
+• Lapangan basket dan futsal
+• Tablet gratis saat pendaftaran
+• Sarana penunjang lainnya seperti BKI (Badan Kejasama Industri), Ruang BK, Kesiswaan, UKS, Ruang Kabid, Parkiran, dan lain-lain
+
+=== KERJASAMA INDUSTRI ===
 Mitra Industri: Toyota, Suzuki, PLN, Alfamart, LG, Swiss-Belhotel.
 Magang / PKL: PKL 12 bulan (dalam & luar negeri).
 Layanan Karir: Penyuluhan karir, penempatan kerja, tracer study alumni.
-Fasilitas Sekolah:
-- Lab Komputer & Robotika, Studio Multimedia & Animasi, Lab Bahasa, Lab Listrik, Lab Otomotif, Lab Mesin
-- Bengkel Otomotif & Mesin, Ruang Kelas Berbasis Industri, Perpustakaan Digital
-- Wi-Fi Campus & System Informasi Akademik, Bimbingan & Konsultasi, Aula, Lapangan Olahraga, Masjid, Kantin
 
 === EKSTRAKURIKULER ===
 Pramuka, Paskibra / PASKIBRAKA, PMR, Futsal, Sepak Bola, Bola Voli, Bola Basket, Bulu Tangkis, E-Sports, Jurnalistik, BTQ, Banjari, Baca Kitab, Ilustrasi, Fotografi, Indo Craft, Menari / Seni Tari, Band, Sastra, Keputrian, Audio Video, 3D Modelling, Android Club, Arduino IoT, CADD & CNC, Auto Plus, Sains Club, Bahasa Inggris, Robotika.
 
-=== PRESTASI SEKOLAH & ALUMNI ===
-Prestasi Utama:
-- Medali Emas & Perunggu ASEAN WorldSkill 2025 (Bidang IT Software Solution for Business).
-- Juara 1 LKS Nasional 2025 (RMS) & Juara 2 LKS Nasional 2025 (Industrial Control).
-- Juara 1 LKS Jawa Timur ke-32 & ke-33 (Electronics, Industrial Control, RMS, Car Painting, IT Software Solution, Prototype Modelling).
-- Juara 2 LKS Jatim ke-32 (Web Technology) & Juara 3 (Marketing Online).
-- Juara 1 Sistem Informasi Festival 2024 (UI/UX Design), Juara Nasional Lomba Coding SMK.
-- SMK dengan jumlah siswa terbanyak ke-4 di Indonesia (Kemendikbud 2016).
+=== PRESTASI SEKOLAH BERDASARKAN TINGKATAN (PRIORITAS PRESTASI) ===
+1. Prestasi Tingkat Internasional (Prioritas Pertama - 3 Terbaru):
+• Medali Emas ASEAN WorldSkill 2025 (Bidang IT Software Solution for Business - Edsel Parama Mustapa)
+• Medali Perunggu ASEAN WorldSkill 2025 (Bidang IT - Risca Revan Suasmara)
+• Delegasi WorldSkill Asia 2026
+
+2. Prestasi Tingkat Nasional (Prioritas Kedua - 3 Terbaru):
+• Juara 1 LKS Nasional 2025 (Bidang Robot Manufacturing System / RMS)
+• Juara 2 LKS Nasional 2025 (Bidang Industrial Control)
+• Juara 1 Sistem Informasi Festival 2024 (UI/UX Design) / Juara Nasional Lomba Coding SMK
+
+3. Prestasi Tingkat Regional (Prioritas Ketiga - 3 Terbaru):
+• Juara 1 LKS DikMen Jatim ke-33 (Industrial Control & Robot Manufacturing System)
+• Juara 1 LKS Jatim ke-32 (Electronics, Car Painting, IT Software Solution, Prototype Modelling)
+• Juara 2 LKS Jatim ke-32 (Web Technology) & Juara 3 (Marketing Online)
 
 Alumni Berprestasi:
 - Edsel Parama Mustapa (2024): Medali Emas ASEAN WorldSkill 2025 (IT Software Solution), BINUS Training Center, Target WorldSkill Asia 2026 China.

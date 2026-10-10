@@ -35,7 +35,7 @@ class ChatbotService
                 return $this->getFriendlyFallbackMessage();
             }
 
-            return $this->formatChatResponse($response);
+            return $this->formatChatResponse($response, $prompt);
         } catch (\Throwable $e) {
             Log::error("Chatbot {$provider} Exception: ".$e->getMessage());
 
