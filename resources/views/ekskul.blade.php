@@ -1,14 +1,14 @@
-<x-layout title="Ekstrakurikuler - SMK PGRI 3 Malang" :headerTransparent="false">
+<x-layout title="Ekstrakurikuler - SMK PGRI 3 Malang" description="Kegiatan ekstrakurikuler SMK PGRI 3 Malang (Skariga) untuk mengembangkan bakat dan minat siswa." :headerTransparent="false">
     <div class="container mx-auto px-4 py-6">
         <section class="relative h-[550px] md:h-[600px] lg:h-[700px] rounded-xl overflow-hidden">
             <div class="absolute inset-0 w-full h-full hover-scale">
-                <img src="{{ $assetBase . '/assets/ekstrahero_11zon.webp' }}" alt="Hero SKARIGA" loading="lazy"
+                <img src="{{ $assetBase . '/assets/ekstrahero_11zon.webp' }}" alt="Hero SKARIGA" fetchpriority="high"
                     class="w-full h-full object-cover ">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </div>
             <div class="absolute bottom-8 left-3.5 md:left-10 z-10">
                 <h1 class="text-5xl md:text-7xl font-bold text-white drop-shadow-lg hover-scale cursor-default">
-                    KEMBANGKAN<br>BAKATMU!
+                    <span class="sr-only">Ekstrakurikuler SMK PGRI 3 Malang - </span>KEMBANGKAN<br>BAKATMU!
                 </h1>
             </div>
         </section>

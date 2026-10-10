@@ -1,4 +1,4 @@
-<x-layout title="{{ $berita->title }} - SMK PGRI 3 Malang">
+<x-layout :title="$berita->title.' - SMK PGRI 3 Malang'" :description="$berita->deskripsi" :image="$image" type="article" :schema="$schema">
     <div class="bg-[#F8F8F8]">
         <!-- Main Content -->
         <main class="container mx-auto px-4 py-8">
@@ -49,7 +49,7 @@
                         <h3 class="font-bold text-xl mb-4 border-b-2 border-customOrange pb-2">Berita Terbaru</h3>
                         <div id="x-sidenews" class="space-y-6">
                             @foreach ($beritaTerbaru->take(3) as $item)
-                            <a href="{{ route('berita.show', $item->id) }}">
+                            <a href="{{ route('berita.show', $item->slug) }}">
                                 <div
                                     class="sidenews-item cursor-pointer transition-all duration-300 hover:bg-gray-50 p-2 rounded-lg">
                                     <x-sidenews title="{{ $item->title }}" image="{{ !is_null($item->gambar) ? $assetBase . '/storage/' . $item->gambar : 'https://placehold.co/600x400' }}" />

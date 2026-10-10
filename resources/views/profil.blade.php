@@ -1,11 +1,11 @@
-<x-layout title="Profil - SMK PGRI 3 Malang" :headerTransparent="false">
+<x-layout title="Profil, Visi dan Misi - SMK PGRI 3 Malang" description="Profil, sejarah sejak 1986, visi, dan misi SMK PGRI 3 Malang (Skariga), sekolah kejuruan di Tlogomas, Kota Malang." :headerTransparent="false">
     <div class="container mx-auto px-4 py-6">
         <!-- Hero SKARIGA -->
         <section class="relative h-[550px] md:h-[600px] lg:h-[700px] mt-2 rounded-xl overflow-hidden">
             <div class="absolute inset-0 w-full h-full transition-transform duration-300 hover:scale-105">
                 <div class="absolute inset-0 bg-gradient-to-t from-transparent via-black/5 to-black/70"></div>
                 <img src="{{ !is_null($profil->heroImage) ? $assetBase . '/storage/' . $profil->heroImage : 'https://placehold.co/600x400' }}"
-                    alt="Hero SKARIGA" class="w-full h-full object-cover">
+                    alt="Hero SKARIGA" fetchpriority="high" class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
             </div>
             <div class="absolute bottom-8 left-3.5 md:left-10 z-10">
@@ -86,7 +86,7 @@
                             -top-11 sm:-top-11 md:top-11 lg:top-11
                             transform md:-translate-y-1/4 lg:-translate-y-1/2">
 
-                            <img src="{{ !is_null($profil->visiImage) ? $assetBase . '/storage/' . $profil->visiImage : $assetBase . '/assets/bp.Luqman_kepsek-removebg-preview.png' }}"
+                            <img src="{{ !is_null($profil->visiImage) ? $assetBase . '/storage/' . $profil->visiImage : $assetBase . '/assets/bp.Luqman_kepsek-removebg-preview.webp' }}"
                                 alt="Kepala Sekolah SMK PGRI 3 Malang"
                                 style="-webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%); mask-image: linear-gradient(to bottom, black 90%, transparent 100%);"
                                 class="w-full max-h-[450px] object-contain mx-auto">
@@ -100,7 +100,7 @@
 
                         <div class="md:hidden flex flex-col items-center w-full bg-transparent rounded-2xl p-4">
                             <div class="relative w-full max-w-96 flex justify-center">
-                                <img src="{{ !is_null($profil->visiImage) ? $assetBase . '/storage/' . $profil->visiImage : $assetBase . '/assets/bp.Luqman_kepsek-removebg-preview.png' }}"
+                                <img src="{{ !is_null($profil->visiImage) ? $assetBase . '/storage/' . $profil->visiImage : $assetBase . '/assets/bp.Luqman_kepsek-removebg-preview.webp' }}"
                                     alt="Kepala Sekolah SMK PGRI 3 Malang"
                                     style="-webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%); mask-image: linear-gradient(to bottom, black 90%, transparent 100%);"
                                     class="w-full object-contain mb-4">

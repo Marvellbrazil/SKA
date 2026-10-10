@@ -1,4 +1,4 @@
-<x-layout title="404 - Page Not Found">
+<x-layout title="404 - Halaman Tidak Ditemukan" :noindex="true">
     <div class="h-full h-max-content container mx-auto px-4 py-6">
         <div class="flex items-center justify-center h-screen">
             <div class="text-center">

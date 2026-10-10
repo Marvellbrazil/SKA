@@ -1,4 +1,4 @@
-<x-layout title="Berita - SMK PGRI 3 Malang">
+<x-layout title="Berita dan Prestasi Siswa - SMK PGRI 3 Malang" description="Kabar terbaru, prestasi siswa, kegiatan, dan pengumuman SMK PGRI 3 Malang (Skariga).">
     @push('styles')
     <style>
     .font-bebas {
@@ -23,6 +23,7 @@
     @endpush
 
     <div class="min-h-screen relative z-0">
+        <h1 class="sr-only">Berita SMK PGRI 3 Malang</h1>
         @php
         $beritaArray = $beritas->values();
         $sections = [
@@ -77,7 +78,7 @@
                                     class="font-poppins text-sm lg:text-base text-gray-500 line-clamp-3 lg:line-clamp-6 leading-relaxed">
                                     {{ Str::limit($main->deskripsi, 350) }}</p>
                             </div>
-                            <a href="{{ route('berita.show', $main->id) }}"
+                            <a href="{{ route('berita.show', $main->slug) }}"
                                 class="font-poppins text-sm font-semibold text-orange-500 hover:underline hover:text-orange-600 mt-6 inline-block">Baca
                                 Selengkapnya →</a>
                         </div>
@@ -108,7 +109,7 @@
                                     class="font-poppins text-sm text-gray-500 line-clamp-2 sm:line-clamp-3 leading-relaxed">
                                     {{ Str::limit($item->deskripsi, 120) }}</p>
                             </div>
-                            <a href="{{ route('berita.show', $item->id) }}"
+                            <a href="{{ route('berita.show', $item->slug) }}"
                                 class="font-poppins text-xs font-semibold text-orange-500 hover:underline hover:text-orange-600 mt-4 inline-block">Baca
                                 Selengkapnya →</a>
                         </div>

@@ -22,6 +22,7 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RecommendationController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes dengan tracking visitor
@@ -80,7 +81,8 @@ Route::post('/jurusan/increment-stats', [JurusanController::class, 'incrementSta
     ->withoutMiddleware(['web']);
 
 Route::get('/jurusan/get-stats', [JurusanController::class, 'getStats'])->name('jurusan.get-stats');
-Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
+Route::get('/jurusan/{jurusan:slug}', [JurusanController::class, 'show'])->name('jurusan.show');
+Route::get('/berita/{berita}', [BeritaController::class, 'show'])->name('berita.show');
 
 // Chatbot routes
 Route::post('/chat/ask', [ChatbotController::class, 'ask'])->name('chat.ask');
@@ -92,7 +94,9 @@ Route::post('/api/gemini', [RecommendationController::class, 'getRecommendation'
 //chart data
 Route::get('/api/chart-data', [PendaftaranController::class, 'getChartData']);
 
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
+
 // Fallback Route
 Route::fallback(function () {
-    return view('fallback') ;
+    return response()->view('fallback', [], 404);
 });

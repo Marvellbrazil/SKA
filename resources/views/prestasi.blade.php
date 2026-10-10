@@ -1,5 +1,6 @@
-<x-layout title="Prestasi - SMK PGRI 3 Malang">
+<x-layout title="Prestasi Siswa - SMK PGRI 3 Malang" description="Daftar prestasi dan penghargaan yang diraih siswa SMK PGRI 3 Malang (Skariga).">
     <div class="h-full container mx-auto px-4 py-6">
+        <h1 class="sr-only">Prestasi Siswa SMK PGRI 3 Malang</h1>
         <section class="hidden lg:grid w-full container mx-auto py-12 grid-cols-2 gap-10 relative z-10">
             <div class="flex flex-col justify-center space-y-6">
                 <div class="flex items-center gap-3 mb-4">
@@ -30,7 +31,7 @@
                             class="absolute -top-4 -left-4 bg-green-400 text-green-900 px-3 py-1 rounded-full text-sm font-bold shadow-lg z-20 cursor-default">
                             🥇 Juara Provinsi
                         </div>
-                        <img src="{{ $assetBase . '/assets/robot-manu.jpg' }}" alt="Gambar" loading="lazy"
+                        <img src="{{ $assetBase . '/assets/robot-manu.webp' }}" alt="Gambar" loading="lazy"
                             class="w-full h-full object-cover rounded-xl">
                     </div>
                     <!-- Kartu 2 -->
@@ -40,7 +41,7 @@
                             class="absolute -top-4 -left-4 bg-sky-400 text-sky-950 px-3 py-1 rounded-full text-sm font-bold shadow-lg z-20 cursor-default">
                             🎗️ Juara Nasional
                         </div>
-                        <img src="{{ $assetBase . '/assets/skariga prestasi.jpg' }}" alt="Gambar" loading="lazy"
+                        <img src="{{ $assetBase . '/assets/skariga-prestasi.webp' }}" alt="Gambar" loading="lazy"
                             class="w-full h-full object-cover rounded-xl">
                     </div>
                     <!-- Kartu 3 -->
@@ -85,7 +86,7 @@
                     <div class="bg-green-400 text-green-900 px-3 py-1 text-sm font-bold text-center">
                         🥇 Juara Provinsi
                     </div>
-                    <img src="{{ $assetBase . '/assets/robot-manu.jpg' }}" class="w-full h-48 object-cover"
+                    <img src="{{ $assetBase . '/assets/robot-manu.webp' }}" class="w-full h-48 object-cover"
                         alt="Juara Provinsi" loading="lazy">
                 </div>
 
@@ -94,7 +95,7 @@
                     <div class="bg-sky-400 text-sky-950 px-3 py-1 text-sm font-bold text-center">
                         🎗️ Juara Nasional
                     </div>
-                    <img src="{{ $assetBase . '/assets/skariga prestasi.jpg' }}" class="w-full h-48 object-cover"
+                    <img src="{{ $assetBase . '/assets/skariga-prestasi.webp' }}" class="w-full h-48 object-cover"
                         alt="Juara Nasional" loading="lazy">
                 </div>
 

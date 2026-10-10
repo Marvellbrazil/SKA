@@ -12,6 +12,7 @@ return new class extends Migration
     public function up()
 {
     Schema::table('visitors', function (Blueprint $table) {
+        $table->dropIndex(['is_active', 'visited_at']);
         $table->dropColumn('is_active');
     });
 }

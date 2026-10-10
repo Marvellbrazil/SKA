@@ -1,9 +1,9 @@
-<x-layout title="Alumni - SMK PGRI 3 Malang">
+<x-layout title="Alumni - SMK PGRI 3 Malang" description="Profil dan kisah alumni SMK PGRI 3 Malang (Skariga) yang berkarya di dunia kerja, wirausaha, dan pendidikan lanjut.">
     <div class="container mx-auto px-4 py-6">
         <section class="w-full relative h-[550px] md:h-[600px] lg:h-[700px] mt-2 rounded-xl overflow-hidden">
             <div class="absolute inset-0 max-w-full mx-auto h-full hover-scale rounded-2xl overflow-hidden">
                 <div class="absolute inset-0 bg-gradient-to-t from-transparent via-black/5 to-black/70"></div>
-                <img src="{{ $assetBase . '/assets/alumni.png' }}" alt="Hero SKARIGA" loading="lazy"
+                <img src="{{ $assetBase . '/assets/alumni.webp' }}" alt="Hero SKARIGA" fetchpriority="high"
                     class="w-full h-full object-cover">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
             </div>
@@ -33,7 +33,7 @@
 
         <section class="py-12 md:py-16 animate-fade-in" id="alumni-section">
             <div class="max-w-full container mx-auto">
-                <h2 class="text-3xl md:text-5xl font-bold text-center mb-4 text-gray-800">ALUMNI HEBAT!</h2>
+                <h1 class="text-3xl md:text-5xl font-bold text-center mb-4 text-gray-800">ALUMNI HEBAT!</h1>
                 <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Alumni-alumni berprestasi SMK PGRI 3 MALANG
                     yang telah sukses di dunia kerja</p>
 

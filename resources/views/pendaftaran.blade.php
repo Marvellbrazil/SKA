@@ -1,16 +1,18 @@
-<x-layout title="Pendaftaran - SMK PGRI 3 Malang">
+<x-layout title="Pendaftaran Siswa Baru - SMK PGRI 3 Malang" description="Informasi pendaftaran siswa baru SMK PGRI 3 Malang (Skariga): daftar online atau offline, atau hubungi admin lewat WhatsApp.">
     <div class="bg-[#F8F8F8] text-gray-800">
         <div class="container mx-auto px-4 py-6">
 
             <!-- Hero Section -->
             <section class="relative h-[550px] md:h-[600px] lg:h-[700px] mt-2 rounded-xl overflow-hidden">
                 <div class="absolute inset-0">
-                    <img src="{{ $assetBase . '/assets/header-pendaftaran.webp' }}" alt="Hero SKARIGA"
+                    <img src="{{ $assetBase . '/assets/header-pendaftaran.webp' }}" alt="Hero SKARIGA" fetchpriority="high"
                         class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                 </div>
                 <div class="absolute bottom-8 left-4 md:left-10 z-10">
                     <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white drop-shadow-lg leading-tight">
+                        <span class="sr-only">Pendaftaran Siswa Baru SMK PGRI 3 Malang</span>
+                    </h1>
                 </div>
                 <div class="absolute bottom-8 right-4 md:right-10 z-10 flex flex-col sm:flex-row gap-3">
                     <a href="https://wa.me/6282133000370"
@@ -95,7 +97,7 @@
                         <h2 class="text-4xl font-bold text-white">Daftar Offline</h2>
                     </div>
                 </section>
-                <img src="{{ $assetBase . '/assets/pendaftaran-offline-nobg.png' }}" alt="Hero SKARIGA"
+                <img src="{{ $assetBase . '/assets/pendaftaran-offline-nobg.webp' }}" alt="Hero SKARIGA" width="1200" height="927" loading="lazy" decoding="async"
                     class="w-full h-auto object-cover  md:ml-10">
             </div>
 
@@ -113,7 +115,7 @@
                 </section>
                 <div class=" md:mr-5 mt-2">
                     <!-- Bungkus margin kanan di sini -->
-                    <img src="{{ $assetBase . '/assets/pend-onl-nobg.png' }}" alt="Hero SKARIGA"
+                    <img src="{{ $assetBase . '/assets/pend-onl-nobg.webp' }}" alt="Hero SKARIGA" width="1200" height="1411" loading="lazy" decoding="async"
                         class="w-full h-auto object-cover">
                 </div>
             </div>

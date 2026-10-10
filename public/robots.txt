@@ -1,2 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /chat/
+Disallow: /api/
+Disallow: /jurusan/increment-stats
+
+Sitemap: https://smkpgri3-malang.sch.id/sitemap.xml

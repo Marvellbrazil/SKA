@@ -14,7 +14,7 @@
         <div class="p-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white flex-shrink-0 shadow-md">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-sm font-bold leading-tight uppercase tracking-wide">SMK PGRI 3 MALANG</h1>
+                    <p class="text-sm font-bold leading-tight uppercase tracking-wide">SMK PGRI 3 MALANG</p>
                     <p class="text-[10px] text-blue-100 opacity-80">Artificial Intelligence Assistant</p>
                 </div>
                 <button @click="open = false" class="hover:bg-white/20 rounded-full p-1 transition">

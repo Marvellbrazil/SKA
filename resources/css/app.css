@@ -1,8 +1,14 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "@fontsource/poppins/latin-400.css";
+@import "@fontsource/poppins/latin-500.css";
+@import "@fontsource/poppins/latin-600.css";
+@import "@fontsource/poppins/latin-700.css";
+@import "@fontsource/poppins/latin-800.css";
+@import "@fontsource/bebas-neue/latin-400.css";
 @import "./swiper.css";
-@import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "./icons.css";
 
 body {
     font-family: 'Poppins', sans-serif !important;

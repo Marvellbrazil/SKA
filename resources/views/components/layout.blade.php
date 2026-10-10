@@ -1,27 +1,15 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="id">
 
 <head>
-    <x-meta></x-meta>
+    @props(['title' => null, 'description' => null, 'image' => null, 'type' => 'website', 'noindex' => false, 'schema' => []])
+    <x-meta :title="$title ?? config('seo.title')" :description="$description" :image="$image" :type="$type" :noindex="$noindex" :schema="$schema"></x-meta>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @props(['title'])
-    <title>{{ $title ?? 'SMK PGRI 3 Malang - Success by Discipline' }}</title>
 
-    @vite(['resources/css/app.css', 'resources/ts/app.ts'])
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
+    @vite(['resources/ts/app.ts'])
 
-    <!-- C's CDNs for migration -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="shortcut icon" href="{{ $assetBase }}/assets/skariga300rbg.png" type="image/x-icon">
-
-    @production
-    <link rel="stylesheet" href="{{ $assetBase }}/build/assets/app.css">
-    @endproduction
+    <link rel="icon" href="{{ $assetBase }}/assets/favicon-64.png" type="image/png" sizes="64x64">
+    <link rel="apple-touch-icon" href="{{ $assetBase }}/assets/favicon-192.png">
 
     @stack('styles')
 </head>
