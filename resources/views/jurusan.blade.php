@@ -5,8 +5,8 @@
             <!-- Hero Section -->
             <section class="relative h-[550px] md:h-[600px] lg:h-[700px] mt-2 rounded-xl overflow-hidden">
                 <div class="absolute inset-0 w-full h-full hover-scale">
-                    <img src="{{ $assetBase . '/assets/jurusan.png' }}" alt="Hero SKARIGA"
-                        class="w-full h-full object-cover " loading="lazy">
+                    <img src="{{ $assetBase . '/assets/jurusan.webp' }}" alt="Hero SKARIGA"
+                        class="w-full h-full object-cover " fetchpriority="high">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
                 </div>
                 <div class="absolute bottom-8 left-3.5 md:left-10 z-10">

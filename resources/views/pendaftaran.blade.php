@@ -5,7 +5,7 @@
             <!-- Hero Section -->
             <section class="relative h-[550px] md:h-[600px] lg:h-[700px] mt-2 rounded-xl overflow-hidden">
                 <div class="absolute inset-0">
-                    <img src="{{ $assetBase . '/assets/header-pendaftaran.webp' }}" alt="Hero SKARIGA"
+                    <img src="{{ $assetBase . '/assets/header-pendaftaran.webp' }}" alt="Hero SKARIGA" fetchpriority="high"
                         class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                 </div>
@@ -97,7 +97,7 @@
                         <h2 class="text-4xl font-bold text-white">Daftar Offline</h2>
                     </div>
                 </section>
-                <img src="{{ $assetBase . '/assets/pendaftaran-offline-nobg.png' }}" alt="Hero SKARIGA"
+                <img src="{{ $assetBase . '/assets/pendaftaran-offline-nobg.webp' }}" alt="Hero SKARIGA" width="1200" height="927" loading="lazy" decoding="async"
                     class="w-full h-auto object-cover  md:ml-10">
             </div>
 
@@ -115,7 +115,7 @@
                 </section>
                 <div class=" md:mr-5 mt-2">
                     <!-- Bungkus margin kanan di sini -->
-                    <img src="{{ $assetBase . '/assets/pend-onl-nobg.png' }}" alt="Hero SKARIGA"
+                    <img src="{{ $assetBase . '/assets/pend-onl-nobg.webp' }}" alt="Hero SKARIGA" width="1200" height="1411" loading="lazy" decoding="async"
                         class="w-full h-auto object-cover">
                 </div>
             </div>

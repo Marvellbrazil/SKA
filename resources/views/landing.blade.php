@@ -6,16 +6,18 @@
                 <div class="swiper-container h-[460px] w-full">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <div class="w-full h-[450px] bg-cover bg-center"
-                                style="background-image: url('{{ $assetBase }}/assets/Hero1.jpeg')"></div>
+                            <div class="w-full h-[450px]">
+                                <img src="{{ $assetBase }}/assets/Hero1.webp" alt="" width="1080" height="607"
+                                    fetchpriority="high" class="w-full h-full object-cover">
+                            </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="w-full h-[450px] bg-cover bg-center"
-                                style="background-image: url('{{ $assetBase }}/assets/Hero4.png')"></div>
+                                style="background-image: url('{{ $assetBase }}/assets/Hero4.webp')"></div>
                         </div>
                         <div class="swiper-slide">
                             <div class="w-full h-[450px] bg-cover bg-center"
-                                style="background-image: url('{{ $assetBase }}/assets/Hero3.png')"></div>
+                                style="background-image: url('{{ $assetBase }}/assets/Hero3.webp')"></div>
                         </div>
                     </div>
                 </div>
@@ -234,7 +236,7 @@
                             <div class="card absolute inset-0 bg-white rounded-2xl shadow-lg overflow-hidden h-80 transition-all duration-700"
                                 data-index="0">
                                 <div class="flex flex-col h-full">
-                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart1.png" alt="TIK"
+                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart1.webp" loading="lazy" decoding="async" alt="TIK"
                                             class="w-full h-40 object-cover"></div>
                                     <div class="w-full p-4 flex flex-col justify-between">
                                         <div>
@@ -257,7 +259,7 @@
                             <div class="card absolute inset-0 bg-white rounded-2xl shadow-lg overflow-hidden h-80 transition-all duration-700"
                                 data-index="1">
                                 <div class="flex flex-col h-full">
-                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart2.png" alt="Pemesinan"
+                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart2.webp" loading="lazy" decoding="async" alt="Pemesinan"
                                             class="w-full h-40 object-cover"></div>
                                     <div class="w-full p-4 flex flex-col justify-between">
                                         <div>
@@ -280,7 +282,7 @@
                             <div class="card absolute inset-0 bg-white rounded-2xl shadow-lg overflow-hidden h-80 transition-all duration-700"
                                 data-index="2">
                                 <div class="flex flex-col h-full">
-                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart3.png" alt="Elektronika"
+                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart3.webp" loading="lazy" decoding="async" alt="Elektronika"
                                             class="w-full h-40 object-cover"></div>
                                     <div class="w-full p-4 flex flex-col justify-between">
                                         <div>
@@ -302,7 +304,7 @@
                             <div class="card absolute inset-0 bg-white rounded-2xl shadow-lg overflow-hidden h-80 transition-all duration-700"
                                 data-index="3">
                                 <div class="flex flex-col h-full">
-                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart4.png" alt="Otomotif"
+                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart4.webp" loading="lazy" decoding="async" alt="Otomotif"
                                             class="w-full h-40 object-cover"></div>
                                     <div class="w-full p-4 flex flex-col justify-between">
                                         <div>
@@ -341,7 +343,7 @@
                     <div
                         class="absolute w-[400px] h-[480px] bg-white rounded-2xl shadow-xl transition-all duration-500 transform -translate-x-80 rotate-[-12deg] translate-y-4 z-0 hover:z-40 hover:scale-105 hover:-translate-y-6 hover:rotate-0 overflow-hidden flex flex-col group">
                         <div class="h-56 w-full overflow-hidden">
-                            <img src="{{ $assetBase }}/assets/Depart1.png" alt="TIK"
+                            <img src="{{ $assetBase }}/assets/Depart1.webp" loading="lazy" decoding="async" alt="TIK"
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 flex flex-col flex-grow justify-between bg-white">
@@ -363,7 +365,7 @@
                     <div
                         class="absolute w-[400px] h-[480px] bg-white rounded-2xl shadow-xl transition-all duration-500 transform -translate-x-28 rotate-[-4deg] z-10 hover:z-40 hover:scale-105 hover:-translate-y-6 hover:rotate-0 overflow-hidden flex flex-col group">
                         <div class="h-56 w-full overflow-hidden">
-                            <img src="{{ $assetBase }}/assets/Depart2.png" alt="Pemesinan"
+                            <img src="{{ $assetBase }}/assets/Depart2.webp" loading="lazy" decoding="async" alt="Pemesinan"
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 flex flex-col flex-grow justify-between bg-white">
@@ -384,7 +386,7 @@
                     <div
                         class="absolute w-[400px] h-[480px] bg-white rounded-2xl shadow-xl transition-all duration-500 transform translate-x-28 rotate-[4deg] z-20 hover:z-40 hover:scale-105 hover:-translate-y-6 hover:rotate-0 overflow-hidden flex flex-col group">
                         <div class="h-56 w-full overflow-hidden">
-                            <img src="{{ $assetBase }}/assets/Depart3.png" alt="Elektronika"
+                            <img src="{{ $assetBase }}/assets/Depart3.webp" loading="lazy" decoding="async" alt="Elektronika"
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 flex flex-col flex-grow justify-between bg-white">
@@ -405,7 +407,7 @@
                     <div
                         class="absolute w-[400px] h-[480px] bg-white rounded-2xl shadow-xl transition-all duration-500 transform translate-x-80 rotate-[12deg] translate-y-4 z-30 hover:z-40 hover:scale-105 hover:-translate-y-6 hover:rotate-0 overflow-hidden flex flex-col group">
                         <div class="h-56 w-full overflow-hidden">
-                            <img src="{{ $assetBase }}/assets/Depart4.png" alt="Otomotif"
+                            <img src="{{ $assetBase }}/assets/Depart4.webp" loading="lazy" decoding="async" alt="Otomotif"
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 flex flex-col flex-grow justify-between bg-white">
@@ -434,34 +436,34 @@
             <div class="swiper industriSwiper2 mb-10">
                 <div class="swiper-wrapper flex items-center">
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/jatim.png" class="h-16 object-contain" alt="LG"></div>
+                            src="{{ $assetBase }}/assets/jatim.png" class="h-16 object-contain" loading="lazy" decoding="async" alt="LG"></div>
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/jaghos.png" class="h-16 object-contain" alt="Alfamart"></div>
+                            src="{{ $assetBase }}/assets/jaghos.png" class="h-16 object-contain" loading="lazy" decoding="async" alt="Alfamart"></div>
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/asco.png" class="h-16 object-contain" alt="Daihatsu"></div>
+                            src="{{ $assetBase }}/assets/asco.png" class="h-16 object-contain" loading="lazy" decoding="async" alt="Daihatsu"></div>
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/japfa.png" class="h-16 object-contain" alt="PJB"></div>
+                            src="{{ $assetBase }}/assets/japfa.png" class="h-16 object-contain" loading="lazy" decoding="async" alt="PJB"></div>
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/crpu.png" class="h-16 object-contain" alt="B&D"></div>
+                            src="{{ $assetBase }}/assets/crpu.png" class="h-16 object-contain" loading="lazy" decoding="async" alt="B&D"></div>
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/radar.png" class="h-16 object-contain" alt="Indonesia Power">
+                            src="{{ $assetBase }}/assets/radar.png" class="h-16 object-contain" loading="lazy" decoding="async" alt="Indonesia Power">
                     </div>
                 </div>
             </div>
             <div class="swiper industriSwiper1">
                 <div class="swiper-wrapper flex items-center">
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/lg.png" class="h-16 object-contain" alt="LG"></div>
+                            src="{{ $assetBase }}/assets/lg.png" class="h-16 object-contain" loading="lazy" decoding="async" alt="LG"></div>
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/alfamart.png" class="h-16 object-contain" alt="Alfamart"></div>
+                            src="{{ $assetBase }}/assets/alfamart.png" class="h-16 object-contain" loading="lazy" decoding="async" alt="Alfamart"></div>
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/daihatsu.png" class="h-16 object-contain" alt="Daihatsu"></div>
+                            src="{{ $assetBase }}/assets/daihatsu.png" class="h-16 object-contain" loading="lazy" decoding="async" alt="Daihatsu"></div>
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/pjb.png" class="h-16 object-contain" alt="PJB"></div>
+                            src="{{ $assetBase }}/assets/pjb.png" class="h-16 object-contain" loading="lazy" decoding="async" alt="PJB"></div>
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/bd.png" class="h-16 object-contain" alt="B&D"></div>
+                            src="{{ $assetBase }}/assets/bd.png" class="h-16 object-contain" loading="lazy" decoding="async" alt="B&D"></div>
                     <div class="swiper-slide-industri flex justify-center items-center"><img
-                            src="{{ $assetBase }}/assets/indonesia-power.png" class="h-16 object-contain"
+                            src="{{ $assetBase }}/assets/indonesia-power.png" class="h-16 object-contain" loading="lazy" decoding="async"
                             alt="Indonesia Power"></div>
                 </div>
             </div>

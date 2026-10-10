@@ -2,7 +2,7 @@
     <div class="container mx-auto px-4 py-6">
         <section class="relative h-[550px] md:h-[600px] lg:h-[700px] rounded-xl overflow-hidden">
             <div class="absolute inset-0 w-full h-full hover-scale">
-                <img src="{{ $assetBase . '/assets/ekstrahero_11zon.webp' }}" alt="Hero SKARIGA" loading="lazy"
+                <img src="{{ $assetBase . '/assets/ekstrahero_11zon.webp' }}" alt="Hero SKARIGA" fetchpriority="high"
                     class="w-full h-full object-cover ">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
             </div>
