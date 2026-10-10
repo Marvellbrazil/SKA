@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use Database\Seeders\ProfilSeeder;
+use FilesystemIterator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
 use Tests\TestCase;
 
 class PerformanceTest extends TestCase
@@ -24,7 +27,7 @@ class PerformanceTest extends TestCase
 
             $this->assertStringNotContainsString('cdn.jsdelivr.net', $html, $path);
             $this->assertStringNotContainsString('build/assets/app.css"', $html, $path);
-            $this->assertSame(1, substr_count($html, 'fonts.googleapis.com/css2'), "{$path} must request Google Fonts once");
+            $this->assertLessThanOrEqual(1, preg_match_all('#<link[^>]+rel="stylesheet"[^>]+build/assets/app-#', $html), "{$path} must load the app stylesheet once");
         }
     }
 
@@ -65,6 +68,45 @@ class PerformanceTest extends TestCase
         }
 
         $this->assertSame([], array_values(array_unique($heavy)));
+    }
+
+    public function test_pages_do_not_depend_on_third_party_font_hosts(): void
+    {
+        $this->seed(ProfilSeeder::class);
+
+        foreach (self::PUBLIC_PATHS as $path) {
+            $html = $this->get($path)->getContent();
+
+            $this->assertStringNotContainsString('fonts.googleapis.com', $html, $path);
+            $this->assertStringNotContainsString('fonts.gstatic.com', $html, $path);
+        }
+    }
+
+    public function test_every_icon_class_used_in_views_exists_in_the_generated_icon_stylesheet(): void
+    {
+        $stylesheet = file_get_contents(resource_path('css/icons.css'));
+        $modifiers = ['fa-solid', 'fa-regular', 'fa-brands', 'fa-classic', 'fa-fw', 'fa-spin', 'fa-lg', 'fa-xs', 'fa-sm', 'fa-xl', 'fa-2xl'];
+        $missing = [];
+
+        foreach (['resources/views', 'resources/ts', 'resources/js', 'app'] as $directory) {
+            $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(base_path($directory), FilesystemIterator::SKIP_DOTS));
+
+            foreach ($files as $file) {
+                if (preg_match('/\.(php|js|ts)$/', $file->getFilename()) !== 1) {
+                    continue;
+                }
+
+                preg_match_all('/\bfa-[a-z0-9-]+/', (string) file_get_contents($file->getPathname()), $matches);
+
+                foreach ($matches[0] as $token) {
+                    if (! in_array($token, $modifiers, true) && ! str_contains($stylesheet, '.'.$token.'{')) {
+                        $missing[$token] = true;
+                    }
+                }
+            }
+        }
+
+        $this->assertSame([], array_keys($missing), 'run php scripts/build-icons.php');
     }
 
     public function test_marquee_query_only_runs_for_the_page_that_renders_it(): void
