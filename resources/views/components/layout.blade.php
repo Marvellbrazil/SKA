@@ -6,11 +6,7 @@
     <x-meta :title="$title ?? config('seo.title')" :description="$description" :image="$image" :type="$type" :noindex="$noindex" :schema="$schema"></x-meta>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     @vite(['resources/ts/app.ts'])
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
 
     <link rel="shortcut icon" href="{{ $assetBase }}/assets/skariga300rbg.png" type="image/x-icon">
 
