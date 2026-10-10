@@ -100,7 +100,7 @@ Google Analytics 4 belum dipasang. Pasang bila ingin melihat perilaku pengunjung
 
 ## Perawatan kode
 
-- Ikon baru di view: jalankan `php scripts/build-icons.php` (butuh `uv`). Test `test_every_icon_class_used_in_views_exists_in_the_generated_icon_stylesheet` gagal bila lupa.
+- Tampilan mengikuti commit `8d1ee1f`: font, ikon Font Awesome lengkap, dan Swiper 8 tidak diganti sebagai bagian optimasi SEO. Test presentasi menjaga dependensi tersebut.
 - Mengganti nama jurusan mengubah slug-nya tanpa redirect.
 - Gambar yang diunggah lewat admin (`/storage`) belum dikompresi otomatis.
 
