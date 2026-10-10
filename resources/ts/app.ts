@@ -66,7 +66,7 @@ const initializeNewsSlider = (): void => {
             slide.className = "swiper-slide relative w-full h-full";
 
             slide.innerHTML = `
-                <a href="/berita/${berita.id}">
+                <a href="/berita/${berita.slug}">
                     <img src="${imagePath}" alt="${berita.title}"
                         class="headnews-img w-full h-[40vh] sm:h-[50vh] md:h-[60vh] lg:h-[70vh] object-cover"
                         onerror="this.src='https://placehold.co/600x400'"/>
