@@ -94,5 +94,5 @@ Route::get('/api/chart-data', [PendaftaranController::class, 'getChartData']);
 
 // Fallback Route
 Route::fallback(function () {
-    return view('fallback') ;
+    return response()->view('fallback', [], 404);
 });
