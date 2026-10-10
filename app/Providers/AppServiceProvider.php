@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('assetBase', rtrim(config('app.url'), '/'));
         });
 
-        View::composer('*', function ($view) {
+        View::composer('components.marquee', function ($view) {
             try {
                 $marquees = Marquee::query()
                     ->orderBy('urutan')
