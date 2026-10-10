@@ -1,4 +1,4 @@
-<x-layout title="SMK PGRI 3 Malang - Success by Discipline">
+<x-layout>
     @vite(['resources/css/landing.css', 'resources/js/landing.js'])
     <div class="relative overflow-hidden bg-white">
         <div class="relative bg-gradient-to-r text-white">

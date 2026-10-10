@@ -1,4 +1,4 @@
-<x-layout title="Jurusan - SMK PGRI 3 Malang">
+<x-layout title="Jurusan SMK di Malang - SMK PGRI 3 Malang" description="Pilih jurusan di SMK PGRI 3 Malang: departemen Elektro, Otomotif, Pemesinan, dan Teknologi Informasi dan Komunikasi. Lihat program keahlian setiap jurusan.">
 
     <div class="bg-[#F8F8F8] text-gray-900 font-sans">
         <div class="container mx-auto px-4 py-6">

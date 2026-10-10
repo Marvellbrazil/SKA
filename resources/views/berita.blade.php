@@ -1,4 +1,4 @@
-<x-layout title="Berita - SMK PGRI 3 Malang">
+<x-layout title="Berita dan Prestasi Siswa - SMK PGRI 3 Malang" description="Kabar terbaru, prestasi siswa, kegiatan, dan pengumuman SMK PGRI 3 Malang (Skariga).">
     @push('styles')
     <style>
     .font-bebas {

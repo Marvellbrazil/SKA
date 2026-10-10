@@ -1,4 +1,4 @@
-<x-layout title="Pendaftaran - SMK PGRI 3 Malang">
+<x-layout title="Pendaftaran Siswa Baru - SMK PGRI 3 Malang" description="Informasi pendaftaran siswa baru SMK PGRI 3 Malang (Skariga): daftar online atau offline, atau hubungi admin lewat WhatsApp.">
     <div class="bg-[#F8F8F8] text-gray-800">
         <div class="container mx-auto px-4 py-6">
 

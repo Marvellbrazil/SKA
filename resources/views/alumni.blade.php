@@ -1,4 +1,4 @@
-<x-layout title="Alumni - SMK PGRI 3 Malang">
+<x-layout title="Alumni - SMK PGRI 3 Malang" description="Profil dan kisah alumni SMK PGRI 3 Malang (Skariga) yang berkarya di dunia kerja, wirausaha, dan pendidikan lanjut.">
     <div class="container mx-auto px-4 py-6">
         <section class="w-full relative h-[550px] md:h-[600px] lg:h-[700px] mt-2 rounded-xl overflow-hidden">
             <div class="absolute inset-0 max-w-full mx-auto h-full hover-scale rounded-2xl overflow-hidden">

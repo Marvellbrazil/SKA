@@ -1,4 +1,4 @@
-<x-layout title="Profil - SMK PGRI 3 Malang" :headerTransparent="false">
+<x-layout title="Profil, Visi dan Misi - SMK PGRI 3 Malang" description="Profil, sejarah sejak 1986, visi, dan misi SMK PGRI 3 Malang (Skariga), sekolah kejuruan di Tlogomas, Kota Malang." :headerTransparent="false">
     <div class="container mx-auto px-4 py-6">
         <!-- Hero SKARIGA -->
         <section class="relative h-[550px] md:h-[600px] lg:h-[700px] mt-2 rounded-xl overflow-hidden">

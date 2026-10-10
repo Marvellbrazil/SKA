@@ -1,4 +1,4 @@
-<x-layout title="Ekstrakurikuler - SMK PGRI 3 Malang" :headerTransparent="false">
+<x-layout title="Ekstrakurikuler - SMK PGRI 3 Malang" description="Kegiatan ekstrakurikuler SMK PGRI 3 Malang (Skariga) untuk mengembangkan bakat dan minat siswa." :headerTransparent="false">
     <div class="container mx-auto px-4 py-6">
         <section class="relative h-[550px] md:h-[600px] lg:h-[700px] rounded-xl overflow-hidden">
             <div class="absolute inset-0 w-full h-full hover-scale">
