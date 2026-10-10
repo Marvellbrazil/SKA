@@ -1,6 +1,6 @@
 <x-layout>
     @push('styles')
-    <link rel="preload" as="image" href="{{ $assetBase }}/assets/Hero1.webp" type="image/webp" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ $assetBase }}/assets/Hero1.jpeg" type="image/jpeg" fetchpriority="high">
     @endpush
     @vite(['resources/css/landing.css', 'resources/js/landing.js'])
     <div class="relative overflow-hidden bg-white">
@@ -9,18 +9,16 @@
                 <div class="swiper-container h-[460px] w-full">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <div class="w-full h-[450px]">
-                                <img src="{{ $assetBase }}/assets/Hero1.webp" alt="" width="1080" height="607"
-                                    fetchpriority="high" class="w-full h-full object-cover">
-                            </div>
+                            <div class="w-full h-[450px] bg-cover bg-center"
+                                style="background-image: url('{{ $assetBase }}/assets/Hero1.jpeg')"></div>
                         </div>
                         <div class="swiper-slide">
                             <div class="w-full h-[450px] bg-cover bg-center"
-                                style="background-image: url('{{ $assetBase }}/assets/Hero4.webp')"></div>
+                                style="background-image: url('{{ $assetBase }}/assets/Hero4.png')"></div>
                         </div>
                         <div class="swiper-slide">
                             <div class="w-full h-[450px] bg-cover bg-center"
-                                style="background-image: url('{{ $assetBase }}/assets/Hero3.webp')"></div>
+                                style="background-image: url('{{ $assetBase }}/assets/Hero3.png')"></div>
                         </div>
                     </div>
                 </div>
@@ -239,7 +237,7 @@
                             <div class="card absolute inset-0 bg-white rounded-2xl shadow-lg overflow-hidden h-80 transition-all duration-700"
                                 data-index="0">
                                 <div class="flex flex-col h-full">
-                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart1.webp" loading="lazy" decoding="async" alt="TIK"
+                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart1.png" loading="lazy" decoding="async" alt="TIK"
                                             class="w-full h-40 object-cover"></div>
                                     <div class="w-full p-4 flex flex-col justify-between">
                                         <div>
@@ -262,7 +260,7 @@
                             <div class="card absolute inset-0 bg-white rounded-2xl shadow-lg overflow-hidden h-80 transition-all duration-700"
                                 data-index="1">
                                 <div class="flex flex-col h-full">
-                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart2.webp" loading="lazy" decoding="async" alt="Pemesinan"
+                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart2.png" loading="lazy" decoding="async" alt="Pemesinan"
                                             class="w-full h-40 object-cover"></div>
                                     <div class="w-full p-4 flex flex-col justify-between">
                                         <div>
@@ -285,7 +283,7 @@
                             <div class="card absolute inset-0 bg-white rounded-2xl shadow-lg overflow-hidden h-80 transition-all duration-700"
                                 data-index="2">
                                 <div class="flex flex-col h-full">
-                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart3.webp" loading="lazy" decoding="async" alt="Elektronika"
+                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart3.png" loading="lazy" decoding="async" alt="Elektronika"
                                             class="w-full h-40 object-cover"></div>
                                     <div class="w-full p-4 flex flex-col justify-between">
                                         <div>
@@ -307,7 +305,7 @@
                             <div class="card absolute inset-0 bg-white rounded-2xl shadow-lg overflow-hidden h-80 transition-all duration-700"
                                 data-index="3">
                                 <div class="flex flex-col h-full">
-                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart4.webp" loading="lazy" decoding="async" alt="Otomotif"
+                                    <div class="w-full"><img src="{{ $assetBase }}/assets/Depart4.png" loading="lazy" decoding="async" alt="Otomotif"
                                             class="w-full h-40 object-cover"></div>
                                     <div class="w-full p-4 flex flex-col justify-between">
                                         <div>
@@ -346,7 +344,7 @@
                     <div
                         class="absolute w-[400px] h-[480px] bg-white rounded-2xl shadow-xl transition-all duration-500 transform -translate-x-80 rotate-[-12deg] translate-y-4 z-0 hover:z-40 hover:scale-105 hover:-translate-y-6 hover:rotate-0 overflow-hidden flex flex-col group">
                         <div class="h-56 w-full overflow-hidden">
-                            <img src="{{ $assetBase }}/assets/Depart1.webp" loading="lazy" decoding="async" alt="TIK"
+                            <img src="{{ $assetBase }}/assets/Depart1.png" loading="lazy" decoding="async" alt="TIK"
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 flex flex-col flex-grow justify-between bg-white">
@@ -368,7 +366,7 @@
                     <div
                         class="absolute w-[400px] h-[480px] bg-white rounded-2xl shadow-xl transition-all duration-500 transform -translate-x-28 rotate-[-4deg] z-10 hover:z-40 hover:scale-105 hover:-translate-y-6 hover:rotate-0 overflow-hidden flex flex-col group">
                         <div class="h-56 w-full overflow-hidden">
-                            <img src="{{ $assetBase }}/assets/Depart2.webp" loading="lazy" decoding="async" alt="Pemesinan"
+                            <img src="{{ $assetBase }}/assets/Depart2.png" loading="lazy" decoding="async" alt="Pemesinan"
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 flex flex-col flex-grow justify-between bg-white">
@@ -389,7 +387,7 @@
                     <div
                         class="absolute w-[400px] h-[480px] bg-white rounded-2xl shadow-xl transition-all duration-500 transform translate-x-28 rotate-[4deg] z-20 hover:z-40 hover:scale-105 hover:-translate-y-6 hover:rotate-0 overflow-hidden flex flex-col group">
                         <div class="h-56 w-full overflow-hidden">
-                            <img src="{{ $assetBase }}/assets/Depart3.webp" loading="lazy" decoding="async" alt="Elektronika"
+                            <img src="{{ $assetBase }}/assets/Depart3.png" loading="lazy" decoding="async" alt="Elektronika"
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 flex flex-col flex-grow justify-between bg-white">
@@ -410,7 +408,7 @@
                     <div
                         class="absolute w-[400px] h-[480px] bg-white rounded-2xl shadow-xl transition-all duration-500 transform translate-x-80 rotate-[12deg] translate-y-4 z-30 hover:z-40 hover:scale-105 hover:-translate-y-6 hover:rotate-0 overflow-hidden flex flex-col group">
                         <div class="h-56 w-full overflow-hidden">
-                            <img src="{{ $assetBase }}/assets/Depart4.webp" loading="lazy" decoding="async" alt="Otomotif"
+                            <img src="{{ $assetBase }}/assets/Depart4.png" loading="lazy" decoding="async" alt="Otomotif"
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="p-6 flex flex-col flex-grow justify-between bg-white">

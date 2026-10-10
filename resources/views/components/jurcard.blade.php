@@ -11,8 +11,8 @@ $colorClass = $deptColors[$departement] ?? 'border-gray-500';
 $deptLower = strtolower($departement);
 @endphp
 
-<div class="w-[380px] shrink-0 rounded-2xl overflow-hidden cursor-pointer group transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl"
-    onclick="handleJurusanClick('{{ $title }}', '{{ $departement }}', `{!! nl2br(e($slot)) !!}`, '{{ $image }}', '{{ $deptLower }}')">
+<a href="{{ route('jurusan.show', $slug) }}" class="block w-[380px] shrink-0 rounded-2xl overflow-hidden cursor-pointer group transition-all duration-300 ease-in-out hover:-translate-y-1 hover:shadow-xl"
+    onclick="event.preventDefault(); handleJurusanClick('{{ $title }}', '{{ $departement }}', `{!! nl2br(e($slot)) !!}`, '{{ $image }}', '{{ $deptLower }}')">
 
     <!-- Image Container with Overlay -->
     <div class="relative h-56 overflow-hidden">
@@ -46,14 +46,11 @@ $deptLower = strtolower($departement);
                 <div>
                     <h4 class="font-bold text-xl text-white drop-shadow-lg">{{ $title }}</h4>
                     <p class="text-sm text-gray-200">{{ $departement }}</p>
-                    @if ($slug)
-                    <a href="{{ route('jurusan.show', $slug) }}" onclick="event.stopPropagation()" class="inline-block mt-1 text-xs font-semibold text-customOrange underline">Lihat detail</a>
-                    @endif
                 </div>
             </div>
         </div>
     </div>
-</div>
+</a>
 
 <script>
 function handleJurusanClick(title, dept, desc, image, departemen) {

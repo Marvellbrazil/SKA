@@ -86,7 +86,7 @@
                             -top-11 sm:-top-11 md:top-11 lg:top-11
                             transform md:-translate-y-1/4 lg:-translate-y-1/2">
 
-                            <img src="{{ !is_null($profil->visiImage) ? $assetBase . '/storage/' . $profil->visiImage : $assetBase . '/assets/bp.Luqman_kepsek-removebg-preview.webp' }}"
+                            <img src="{{ !is_null($profil->visiImage) ? $assetBase . '/storage/' . $profil->visiImage : $assetBase . '/assets/bp.Luqman_kepsek-removebg-preview.png' }}"
                                 alt="Kepala Sekolah SMK PGRI 3 Malang"
                                 style="-webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%); mask-image: linear-gradient(to bottom, black 90%, transparent 100%);"
                                 class="w-full max-h-[450px] object-contain mx-auto">
@@ -100,7 +100,7 @@
 
                         <div class="md:hidden flex flex-col items-center w-full bg-transparent rounded-2xl p-4">
                             <div class="relative w-full max-w-96 flex justify-center">
-                                <img src="{{ !is_null($profil->visiImage) ? $assetBase . '/storage/' . $profil->visiImage : $assetBase . '/assets/bp.Luqman_kepsek-removebg-preview.webp' }}"
+                                <img src="{{ !is_null($profil->visiImage) ? $assetBase . '/storage/' . $profil->visiImage : $assetBase . '/assets/bp.Luqman_kepsek-removebg-preview.png' }}"
                                     alt="Kepala Sekolah SMK PGRI 3 Malang"
                                     style="-webkit-mask-image: linear-gradient(to bottom, black 90%, transparent 100%); mask-image: linear-gradient(to bottom, black 90%, transparent 100%);"
                                     class="w-full object-contain mb-4">

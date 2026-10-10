@@ -97,7 +97,7 @@
                         <h2 class="text-4xl font-bold text-white">Daftar Offline</h2>
                     </div>
                 </section>
-                <img src="{{ $assetBase . '/assets/pendaftaran-offline-nobg.webp' }}" alt="Hero SKARIGA" width="1200" height="927" loading="lazy" decoding="async"
+                <img src="{{ $assetBase . '/assets/pendaftaran-offline-nobg.png' }}" alt="Hero SKARIGA" width="1920" height="1483" loading="lazy" decoding="async"
                     class="w-full h-auto object-cover  md:ml-10">
             </div>
 
@@ -115,7 +115,7 @@
                 </section>
                 <div class=" md:mr-5 mt-2">
                     <!-- Bungkus margin kanan di sini -->
-                    <img src="{{ $assetBase . '/assets/pend-onl-nobg.webp' }}" alt="Hero SKARIGA" width="1200" height="1411" loading="lazy" decoding="async"
+                    <img src="{{ $assetBase . '/assets/pend-onl-nobg.png' }}" alt="Hero SKARIGA" width="1920" height="2257" loading="lazy" decoding="async"
                         class="w-full h-auto object-cover">
                 </div>
             </div>

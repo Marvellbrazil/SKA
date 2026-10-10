@@ -5,14 +5,18 @@
             <!-- Hero Section -->
             <section class="relative h-[550px] md:h-[600px] lg:h-[700px] mt-2 rounded-xl overflow-hidden">
                 <div class="absolute inset-0 w-full h-full hover-scale">
-                    <img src="{{ $assetBase . '/assets/jurusan.webp' }}" alt="Hero SKARIGA"
+                    <img src="{{ $assetBase . '/assets/jurusan.png' }}" alt="Hero SKARIGA"
                         class="w-full h-full object-cover " fetchpriority="high">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
                 </div>
                 <div class="absolute bottom-8 left-3.5 md:left-10 z-10">
-                    <h1 class="text-5xl md:text-7xl font-bold text-white drop-shadow-lg hover-scale">
-                        <span class="sr-only">Jurusan SMK di Malang - </span>TEMUKAN<br>POTENSIMU!
-                    </h1>
+                    <h1 class="sr-only">Jurusan SMK di Malang</h1>
+                    <p class="text-5xl md:text-7xl font-bold text-white drop-shadow-lg hover-scale">
+                        TEMUKAN
+                    </p>
+                    <p class="text-5xl md:text-7xl font-bold text-white drop-shadow-lg hover-scale">
+                        POTENSIMU!
+                    </p>
                 </div>
             </section>
 

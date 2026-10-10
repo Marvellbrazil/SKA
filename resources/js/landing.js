@@ -1,6 +1,3 @@
-import Swiper from 'swiper';
-import { Autoplay } from 'swiper/modules';
-
 function redirect() { globalThis.location.href = "/jurusan"; }
 function setupKeywordInput(keywordInput, keywordDropdown) {
     keywordInput.addEventListener('focus', function () {
@@ -78,9 +75,9 @@ document.addEventListener('DOMContentLoaded', function () {
         resetButton.addEventListener('click', function () { leftContent.classList.remove('hidden'); resultContainer.classList.add('hidden'); form.classList.remove('hidden'); resetContainer.classList.add('hidden'); keywordInput.value = ''; });
     }
 
-    if (document.querySelector('.industriSwiper1')) {
-        new Swiper(".industriSwiper1", { modules: [Autoplay], slidesPerView: 4, slideClass: 'swiper-slide-industri', spaceBetween: 30, loop: true, autoplay: { delay: 0, disableOnInteraction: false }, speed: 3000, breakpoints: { 320: { slidesPerView: 2, spaceBetween: 20 }, 640: { slidesPerView: 3, spaceBetween: 20 }, 1024: { slidesPerView: 5, spaceBetween: 30 } } });
-        new Swiper(".industriSwiper2", { modules: [Autoplay], slidesPerView: 4, slideClass: 'swiper-slide-industri', spaceBetween: 30, loop: true, autoplay: { delay: 0, disableOnInteraction: false, reverseDirection: true }, speed: 3000, breakpoints: { 320: { slidesPerView: 2, spaceBetween: 20 }, 640: { slidesPerView: 3, spaceBetween: 20 }, 1024: { slidesPerView: 5, spaceBetween: 30 } } });
+    if (typeof Swiper !== 'undefined') {
+        new Swiper(".industriSwiper1", { slidesPerView: 4, slideClass: 'swiper-slide-industri', spaceBetween: 30, loop: true, autoplay: { delay: 0, disableOnInteraction: false }, speed: 3000, breakpoints: { 320: { slidesPerView: 2, spaceBetween: 20 }, 640: { slidesPerView: 3, spaceBetween: 20 }, 1024: { slidesPerView: 5, spaceBetween: 30 } } });
+        new Swiper(".industriSwiper2", { slidesPerView: 4, slideClass: 'swiper-slide-industri', spaceBetween: 30, loop: true, autoplay: { delay: 0, disableOnInteraction: false, reverseDirection: true }, speed: 3000, breakpoints: { 320: { slidesPerView: 2, spaceBetween: 20 }, 640: { slidesPerView: 3, spaceBetween: 20 }, 1024: { slidesPerView: 5, spaceBetween: 30 } } });
     }
 
     const cards = document.querySelectorAll('.card');

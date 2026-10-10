@@ -31,7 +31,7 @@
                             class="absolute -top-4 -left-4 bg-green-400 text-green-900 px-3 py-1 rounded-full text-sm font-bold shadow-lg z-20 cursor-default">
                             🥇 Juara Provinsi
                         </div>
-                        <img src="{{ $assetBase . '/assets/robot-manu.webp' }}" alt="Gambar" loading="lazy"
+                        <img src="{{ $assetBase . '/assets/robot-manu.jpg' }}" alt="Gambar" loading="lazy"
                             class="w-full h-full object-cover rounded-xl">
                     </div>
                     <!-- Kartu 2 -->
@@ -41,7 +41,7 @@
                             class="absolute -top-4 -left-4 bg-sky-400 text-sky-950 px-3 py-1 rounded-full text-sm font-bold shadow-lg z-20 cursor-default">
                             🎗️ Juara Nasional
                         </div>
-                        <img src="{{ $assetBase . '/assets/skariga-prestasi.webp' }}" alt="Gambar" loading="lazy"
+                        <img src="{{ $assetBase . '/assets/skariga prestasi.jpg' }}" alt="Gambar" loading="lazy"
                             class="w-full h-full object-cover rounded-xl">
                     </div>
                     <!-- Kartu 3 -->
@@ -86,7 +86,7 @@
                     <div class="bg-green-400 text-green-900 px-3 py-1 text-sm font-bold text-center">
                         🥇 Juara Provinsi
                     </div>
-                    <img src="{{ $assetBase . '/assets/robot-manu.webp' }}" class="w-full h-48 object-cover"
+                    <img src="{{ $assetBase . '/assets/robot-manu.jpg' }}" class="w-full h-48 object-cover"
                         alt="Juara Provinsi" loading="lazy">
                 </div>
 
@@ -95,7 +95,7 @@
                     <div class="bg-sky-400 text-sky-950 px-3 py-1 text-sm font-bold text-center">
                         🎗️ Juara Nasional
                     </div>
-                    <img src="{{ $assetBase . '/assets/skariga-prestasi.webp' }}" class="w-full h-48 object-cover"
+                    <img src="{{ $assetBase . '/assets/skariga prestasi.jpg' }}" class="w-full h-48 object-cover"
                         alt="Juara Nasional" loading="lazy">
                 </div>
 
