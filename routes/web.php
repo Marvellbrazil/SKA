@@ -22,6 +22,7 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RecommendationController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 // Public routes dengan tracking visitor
@@ -92,6 +93,8 @@ Route::post('/api/gemini', [RecommendationController::class, 'getRecommendation'
 
 //chart data
 Route::get('/api/chart-data', [PendaftaranController::class, 'getChartData']);
+
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
 // Fallback Route
 Route::fallback(function () {
