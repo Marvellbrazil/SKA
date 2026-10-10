@@ -10,7 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\View\Component;
 
-class meta extends Component
+class Meta extends Component
 {
     public string $resolvedDescription;
 
