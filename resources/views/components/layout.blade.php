@@ -8,7 +8,8 @@
 
     @vite(['resources/ts/app.ts'])
 
-    <link rel="shortcut icon" href="{{ $assetBase }}/assets/skariga300rbg.png" type="image/x-icon">
+    <link rel="icon" href="{{ $assetBase }}/assets/favicon-64.png" type="image/png" sizes="64x64">
+    <link rel="apple-touch-icon" href="{{ $assetBase }}/assets/favicon-192.png">
 
     @stack('styles')
 </head>
