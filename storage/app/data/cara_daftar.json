@@ -1,9 +1,20 @@
 {
+    "jadwal": {
+        "pembukaan_gelombang_1": "Pendaftaran Gelombang 1 SELALU dibuka pada tanggal 10 bulan 10 (10 Oktober).",
+        "penutupan": "Informasi penutupan pendaftaran sekolah mengikuti pengumuman resmi di berita/website atau saat kuota terpenuhi."
+    },
+    "dokumen_persyaratan": [
+        "Membawa fotokopi Kartu Keluarga (KK)",
+        "Fotokopi KTP orang tua/wali",
+        "Ijazah atau Surat Keterangan Lulus (SKL) SMP/sederajat atau nilai rapor semester terakhir",
+        "Pas foto ukuran 3x4 cm berwarna dengan latar belakang (background) MERAH atau BIRU",
+        "TIDAK PERLU surat keterangan sehat (tidak disyaratkan)"
+    ],
     "offline": [
-        "Datang langsung ke sekolah di Jl. Raya Tlogomas Gg. 9 No.29, Malang",
+        "Datang langsung ke sekolah di Jl. Raya Tlogomas Gg. 9 No.29, Lowokwaru, Malang membawa berkas persyaratan",
         "Buat akun pendaftaran di ruang administrasi",
         "Lakukan cek fisik dan pengukuran seragam",
-        "Isi formulir pendaftaran dan serahkan berkas persyaratan",
+        "Isi formulir pendaftaran dan serahkan berkas persyaratan (fotokopi KK, KTP orang tua/wali, ijazah/SKL/rapor, pas foto background merah atau biru)",
         "Tunggu pengumuman hasil seleksi dan pengambilan fasilitas belajar"
     ],
     "online": [

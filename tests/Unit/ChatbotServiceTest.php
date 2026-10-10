@@ -172,6 +172,17 @@ class ChatbotServiceTest extends TestCase
         $this->assertStringContainsString('WAJIB MENOLAK', $prompt);
     }
 
+    public function test_system_prompt_contains_pendaftaran_rules_and_reasoning_restrictions(): void
+    {
+        $prompt = $this->getSystemPrompt('Dummy context');
+
+        $this->assertStringContainsString('Gelombang 1 SELALU dibuka pada tanggal 10 bulan 10', $prompt);
+        $this->assertStringContainsString('JANGAN PERNAH menampilkan langkah, proses, atau teks penalaran/reasoning', $prompt);
+        $this->assertStringContainsString('Kartu Keluarga (KK)', $prompt);
+        $this->assertStringContainsString('MERAH atau BIRU', $prompt);
+        $this->assertStringContainsString('TIDAK PERLU surat keterangan sehat', $prompt);
+    }
+
     public function test_format_chat_response_cleans_markdown_and_escapes(): void
     {
         $input = "### Judul Bagian\nBerikut contoh **teks tebal** dan *teks miring*:\n- Poin 1\n* Poin 2\nAda escape \\*bintang\\* dan \\[tanda kurung\\].";
@@ -184,6 +195,17 @@ class ChatbotServiceTest extends TestCase
         $this->assertStringNotContainsString('**', $formatted);
         $this->assertStringNotContainsString('\*', $formatted);
         $this->assertStringNotContainsString('\[', $formatted);
+    }
+
+    public function test_format_chat_response_strips_reasoning_and_think_tags(): void
+    {
+        $input = "<think>Ini adalah penalaran internal model AI mengenai tanggal penutupan pendaftaran.</think>Reasoning: menganalisis database...\n\n<b>1. Jadwal Pendaftaran</b>\nPendaftaran Gelombang 1 dibuka 10 Oktober.";
+        $formatted = $this->formatChatResponse($input);
+
+        $this->assertStringNotContainsString('<think>', $formatted);
+        $this->assertStringNotContainsString('penalaran internal', $formatted);
+        $this->assertStringNotContainsString('Reasoning:', $formatted);
+        $this->assertStringContainsString('<b>1. Jadwal Pendaftaran</b>', $formatted);
     }
 
     public function test_get_database_context_extracts_school_profile_when_database_is_populated(): void
@@ -206,6 +228,9 @@ class ChatbotServiceTest extends TestCase
         $this->assertStringContainsString('Kepala Sekolah: Moch. Lukman Hakim, S.T, M.M.', $context);
         $this->assertStringContainsString('Visi: Menjadi SMK Unggul', $context);
         $this->assertStringContainsString('Sejarah SKARIGA sejak 1986', $context);
+        $this->assertStringContainsString('Gelombang 1 SELALU dibuka pada tanggal 10 bulan 10', $context);
+        $this->assertStringContainsString('MERAH atau BIRU', $context);
+        $this->assertStringContainsString('TIDAK PERLU surat keterangan sehat', $context);
     }
 
     public function test_get_context_falls_back_to_file_when_db_is_empty(): void

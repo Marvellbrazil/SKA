@@ -259,7 +259,7 @@ function appendMessage(sender, text, animate = false, onComplete = null) {
 function appendTyping() {
     const typing = document.createElement('div');
     typing.classList.add('bubble', 'bot');
-    typing.innerHTML = `<div class="typing"><span></span><span></span><span></span></div>`;
+    typing.innerHTML = `<div class="typing" title="Sedang berpikir..." aria-label="Sedang berpikir..."><span></span><span></span><span></span></div>`;
     chatbox.appendChild(typing);
     scrollToBottom();
     return typing;

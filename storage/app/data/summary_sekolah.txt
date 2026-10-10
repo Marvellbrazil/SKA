@@ -38,17 +38,29 @@ Google Maps: https://maps.app.goo.gl/WnFCmvAJwg9GwM4A8
    - PLN Distribusi
    - PJB Class (Kimia, Mekanik, Instrumen, Listrik)
 
-=== ALUR PENDAFTARAN (PPDB) ===
-- Pendaftaran Offline:
-  1. Datang ke Jl. Raya Tlogomas Gg. 9 No.29, Malang.
-  2. Buat akun pendaftaran di ruang administrasi.
-  3. Cek fisik & pengukuran seragam.
-  4. Isi formulir & serahkan berkas persyaratan.
-  5. Pengumuman hasil seleksi & pengambilan fasilitas belajar.
-- Pendaftaran Online:
-  1. Hubungi WhatsApp Call Center 0821-3300-0370.
-  2. Kirim salam & tujuan pendaftaran.
-  3. Pendaftaran dipandu digital oleh staf hingga selesai.
+=== INFORMASI & ALUR PENDAFTARAN (PPDB) ===
+Jadwal Pendaftaran:
+- Pembukaan: Pendaftaran Gelombang 1 SELALU dibuka pada tanggal 10 bulan 10 (10 Oktober).
+- Penutupan: Mengikuti pengumuman resmi di berita/website sekolah atau saat kuota terpenuhi. Jika belum ada pengumuman penutupan resmi pada berita/database, penutupan pendaftaran menyesuaikan keterisian kuota.
+
+Dokumen Persyaratan:
+- Membawa fotokopi Kartu Keluarga (KK).
+- Fotokopi KTP orang tua/wali.
+- Ijazah / Surat Keterangan Lulus (SKL) SMP/sederajat atau nilai rapor semester terakhir.
+- Pas foto ukuran 3x4 cm berwarna dengan background/latar belakang MERAH atau BIRU.
+- TIDAK PERLU surat keterangan sehat (tidak disyaratkan / tidak diperlukan).
+
+Alur Pendaftaran Offline:
+1. Datang ke Jl. Raya Tlogomas Gg. 9 No.29, Lowokwaru, Malang dengan membawa berkas persyaratan.
+2. Buat akun pendaftaran di ruang administrasi.
+3. Cek fisik & pengukuran seragam.
+4. Isi formulir & serahkan berkas persyaratan (fotokopi KK, KTP ortu, pas foto merah/biru, SKL/rapor).
+5. Pengumuman hasil seleksi & pengambilan fasilitas belajar.
+
+Alur Pendaftaran Online:
+1. Hubungi WhatsApp Call Center 0821-3300-0370.
+2. Kirim salam & tujuan pendaftaran calon siswa.
+3. Pendaftaran dipandu secara digital oleh staf panitia PPDB hingga selesai.
 
 === KERJASAMA INDUSTRI & FASILITAS ===
 Mitra Industri: Toyota, Suzuki, PLN, Alfamart, LG, Swiss-Belhotel.
