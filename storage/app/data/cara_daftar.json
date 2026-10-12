@@ -5,11 +5,11 @@
     },
     "dokumen_persyaratan": [
         "Membawa fotokopi Kartu Keluarga (KK)",
-        "Fotokopi KTP orang tua/wali",
-        "Ijazah atau Surat Keterangan Lulus (SKL) SMP/sederajat atau nilai rapor semester terakhir",
-        "Pas foto ukuran 3x4 cm berwarna dengan latar belakang (background) MERAH atau BIRU",
-        "TIDAK PERLU surat keterangan sehat (tidak disyaratkan)"
+        "Fotokopi KTP orang tua / wali",
+        "Ijazah atau Surat Keterangan Lulus (SKL) SMP/MTs (atau nilai rapor semester terakhir)",
+        "Pas foto ukuran 3x4 cm, berwarna dengan latar belakang (background) MERAH atau BIRU"
     ],
+    "catatan_surat_sehat": "Tidak diperlukan surat keterangan sehat (hanya diinfokan jika user bertanya tentang surat sehat).",
     "offline": [
         "Datang langsung ke sekolah di Jl. Raya Tlogomas Gg. 9 No.29, Lowokwaru, Malang membawa berkas persyaratan",
         "Buat akun pendaftaran di ruang administrasi",

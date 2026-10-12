@@ -180,7 +180,23 @@ class ChatbotServiceTest extends TestCase
         $this->assertStringContainsString('JANGAN PERNAH menampilkan langkah, proses, atau teks penalaran/reasoning', $prompt);
         $this->assertStringContainsString('Kartu Keluarga (KK)', $prompt);
         $this->assertStringContainsString('MERAH atau BIRU', $prompt);
-        $this->assertStringContainsString('TIDAK PERLU surat keterangan sehat', $prompt);
+        $this->assertStringContainsString('DILARANG menyebutkan atau menampilkan \'Catatan penting: Tidak diperlukan surat keterangan sehat\'', $prompt);
+    }
+
+    public function test_system_prompt_contains_fasilitas_and_kelebihan_rules(): void
+    {
+        $prompt = $this->getSystemPrompt('Dummy context');
+
+        $this->assertStringContainsString('Ruang kelas', $prompt);
+        $this->assertStringContainsString('Laboratorium dan bengkel praktik', $prompt);
+        $this->assertStringContainsString('Lapangan basket dan futsal', $prompt);
+        $this->assertStringContainsString('Tablet gratis saat pendaftaran', $prompt);
+        $this->assertStringContainsString('Badan Kejasama Industri', $prompt);
+
+        $this->assertStringContainsString('Prioritas Pertama: Prestasi Internasional', $prompt);
+        $this->assertStringContainsString('Prioritas Kedua: Prestasi Nasional', $prompt);
+        $this->assertStringContainsString('Prioritas Ketiga: Prestasi Regional', $prompt);
+        $this->assertStringContainsString('DILARANG KERAS menampilkan poin \'Lokasi Strategis\'', $prompt);
     }
 
     public function test_format_chat_response_cleans_markdown_and_escapes(): void
@@ -208,6 +224,33 @@ class ChatbotServiceTest extends TestCase
         $this->assertStringContainsString('<b>1. Jadwal Pendaftaran</b>', $formatted);
     }
 
+    public function test_format_chat_response_removes_surat_sehat_when_not_explicitly_asked(): void
+    {
+        $input = "2. Dokumen Persyaratan\n• Fotokopi Kartu Keluarga (KK)\n• Fotokopi KTP orang tua / wali\n• Ijazah atau Surat Keterangan Lulus (SKL) SMP/MTs\n• Pas foto ukuran 3×4 cm, berwarna dengan latar belakang MERAH atau BIRU\n• Catatan penting: Tidak diperlukan surat keterangan sehat.";
+        $formatted = $this->formatChatResponse($input, 'Bagaimana cara mendaftar?');
+
+        $this->assertStringNotContainsString('surat keterangan sehat', $formatted);
+        $this->assertStringContainsString('Fotokopi Kartu Keluarga (KK)', $formatted);
+    }
+
+    public function test_format_chat_response_retains_surat_sehat_when_explicitly_asked(): void
+    {
+        $input = "Untuk pendaftaran di SMK PGRI 3 Malang, tidak diperlukan surat keterangan sehat.";
+        $formatted = $this->formatChatResponse($input, 'Apakah perlu membawa surat keterangan sehat?');
+
+        $this->assertStringContainsString('tidak diperlukan surat keterangan sehat', $formatted);
+    }
+
+    public function test_format_chat_response_removes_lokasi_strategis_on_kelebihan_prompt(): void
+    {
+        $input = "1. Program Industri Unggulan\n• Kelas industri Toyota dsb.\n\n7. Lokasi Strategis\n• Terletak di Jl. Raya Tlogomas Gg. 9 No. 29, Lowokwaru, Malang, mudah diakses dan dekat dengan fasilitas umum. Lokasi Google Maps\n\n2. Fasilitas Lengkap\n• Ruang kelas dan lab praktik.";
+        $formatted = $this->formatChatResponse($input, 'kelebihan smk pgri 3 malang dengan sekolah lain?');
+
+        $this->assertStringNotContainsString('Lokasi Strategis', $formatted);
+        $this->assertStringContainsString('Program Industri Unggulan', $formatted);
+        $this->assertStringContainsString('Fasilitas Lengkap', $formatted);
+    }
+
     public function test_get_database_context_extracts_school_profile_when_database_is_populated(): void
     {
         $migration = require database_path('migrations/2025_10_16_034545_create_profils_table.php');
@@ -221,7 +264,7 @@ class ChatbotServiceTest extends TestCase
             'youtubeSrc' => 'https://youtube.com',
         ]);
 
-        Cache::forget('chatbot_school_context');
+        Cache::forget('chatbot_school_context_v4');
         $context = $this->getDatabaseContext();
 
         $this->assertNotNull($context);
@@ -230,7 +273,8 @@ class ChatbotServiceTest extends TestCase
         $this->assertStringContainsString('Sejarah SKARIGA sejak 1986', $context);
         $this->assertStringContainsString('Gelombang 1 SELALU dibuka pada tanggal 10 bulan 10', $context);
         $this->assertStringContainsString('MERAH atau BIRU', $context);
-        $this->assertStringContainsString('TIDAK PERLU surat keterangan sehat', $context);
+        $this->assertStringContainsString('Fasilitas yang ada di SMK PGRI 3 Malang antara lain:', $context);
+        $this->assertStringContainsString('Prestasi Tingkat Internasional (Prioritas Pertama', $context);
     }
 
     public function test_get_context_falls_back_to_file_when_db_is_empty(): void
