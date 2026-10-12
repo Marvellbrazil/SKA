@@ -94,6 +94,7 @@ Route::post('/api/gemini', [RecommendationController::class, 'getRecommendation'
 //chart data
 Route::get('/api/chart-data', [PendaftaranController::class, 'getChartData']);
 
+Route::permanentRedirect('/Pendaftaran', '/pendaftaran');
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 
 // Fallback Route

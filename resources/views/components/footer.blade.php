@@ -56,7 +56,7 @@
                     </li>
                     <li><a href="/alumni"
                             class="text-[#828282] hover:text-white transition text-xs md:text-base">Alumni</a></li>
-                    <li><a href="/Pendaftaran"
+                    <li><a href="/pendaftaran"
                             class="text-[#828282] hover:text-white transition text-xs md:text-base">Pendaftaran</a></li>
                 </ul>
             </div>

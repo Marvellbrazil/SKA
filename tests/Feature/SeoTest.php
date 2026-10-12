@@ -99,6 +99,23 @@ PHP], base_path());
         $this->assertStringContainsString('Disallow: /admin', $robots);
     }
 
+    public function test_footer_links_to_the_canonical_registration_page(): void
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('href="/pendaftaran"', false)
+            ->assertDontSee('href="/Pendaftaran"', false);
+    }
+
+    public function test_legacy_registration_url_redirects_permanently(): void
+    {
+        $this->get('/Pendaftaran')
+            ->assertStatus(301)
+            ->assertRedirect('/pendaftaran');
+
+        $this->get('/pendaftaran')->assertOk();
+    }
+
     public function test_sitemap_is_valid_xml_with_public_urls(): void
     {
         $berita = $this->makeBerita();
