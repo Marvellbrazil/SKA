@@ -9,6 +9,7 @@ use App\Models\Jurusan;
 use Database\Seeders\ProfilSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Cache;
+use Symfony\Component\Process\Process;
 use Tests\TestCase;
 
 class SeoTest extends TestCase
@@ -33,6 +34,19 @@ class SeoTest extends TestCase
             'deskripsi' => 'Mempelajari perawatan dan perbaikan kendaraan ringan.',
             'gambar' => 'jurusan/tkr.jpg',
         ]);
+    }
+
+    public function test_sitemap_compiles_with_short_open_tags_enabled(): void
+    {
+        $process = new Process([PHP_BINARY, '-d', 'short_open_tag=1', '-r', <<<'PHP'
+require 'vendor/autoload.php';
+$compiler = new Illuminate\View\Compilers\BladeCompiler(new Illuminate\Filesystem\Filesystem(), sys_get_temp_dir());
+$compiled = $compiler->compileString(file_get_contents('resources/views/sitemap.blade.php'));
+token_get_all($compiled, TOKEN_PARSE);
+PHP], base_path());
+        $process->run();
+
+        $this->assertSame(0, $process->getExitCode(), $process->getErrorOutput());
     }
 
     public function test_unknown_url_returns_404_and_noindex(): void
