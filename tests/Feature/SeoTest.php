@@ -116,6 +116,18 @@ PHP], base_path());
         $this->get('/pendaftaran')->assertOk();
     }
 
+    public function test_indexed_chat_endpoint_can_be_crawled_for_removal(): void
+    {
+        $robots = file_get_contents(public_path('robots.txt'));
+
+        $this->assertStringContainsString('Allow: /chat/ask$', $robots);
+        $this->assertStringContainsString('Disallow: /chat/', $robots);
+
+        $this->get('/chat/ask')
+            ->assertNotFound()
+            ->assertSee('noindex, nofollow', false);
+    }
+
     public function test_sitemap_is_valid_xml_with_public_urls(): void
     {
         $berita = $this->makeBerita();
